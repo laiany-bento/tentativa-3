@@ -33,20 +33,18 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
 .text-pool { color: var(--cor-secundaria) !important; }
 .section-title { text-align: center; margin-bottom: 40px; }
 .section-title h2 { color: var(--cor-principal); font-size: 2.4rem; font-weight: 800; }
-.section-subtitle { color: var(--cor-texto-secundario); font-size: 1.2rem; }
+.section-subtitle { color: var(--cor-texto-secundario); font-size: 1.2rem; max-width: 800px; margin: 10px auto 0 auto; }
 
-/* BOTÕES FLUTUANTES CORRIGIDOS */
+/* PAINEL DE ACESSIBILIDADE FIXO CORRIGIDO */
 .accessibility-container-fixed { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 999999; }
 .btn-float-action { width: 60px; height: 60px; border-radius: 50%; background-color: var(--cor-botao); color: white; font-size: 1.6rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
 #btn-libras { background-color: #0056b3; padding: 5px; }
 
-/* MENU CORRIGIDO COM DISPLAY NONE PADRÃO */
 .accessibility-menu { 
     position: absolute; bottom: 145px; right: 0; 
     background-color: #0a192f; border: 2px solid var(--cor-secundaria); 
     padding: 15px; border-radius: 8px; 
-    display: none; /* JS controla diretamente */
-    flex-direction: column; gap: 10px; width: 220px; 
+    display: none; flex-direction: column; gap: 10px; width: 220px; 
     box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
 }
 .accessibility-menu h4 { color: #fff; text-align: center; font-size: 0.95rem; padding-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); }
@@ -55,106 +53,90 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
 .font-resizer { display: flex; gap: 5px; }
 .font-resizer button { flex: 1; text-align: center !important; }
 
-/* HEADER */
+/* CABEÇALHO & BANNER */
 .header { background-color: #0a192f; display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--cor-secundaria); }
 .logo h2 { color: #ffffff; font-weight: 800; }
 .nav-menu ul { display: flex; list-style: none; gap: 20px; }
 .nav-menu a { color: #ffffff; text-decoration: none; font-weight: 600; }
 .menu-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; }
 .menu-toggle span { width: 25px; height: 3px; background-color: #ffffff; display: block; }
-.hero { min-height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 30px; }
-.badge { background-color: var(--cor-secundaria); color: #000; padding: 6px 18px; border-radius: 20px; font-weight: bold; }
-.hero h1 { font-size: 2.6rem; margin: 15px 0; font-weight: 800; }
-.btn-main { background-color: var(--cor-secundaria); color: #000; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: bold; }
 
-/* ==========================================================================
-   NOVO DESIGN DO SLIDER COMPARAÇÃO (MÉTODO DA OPACIDADE RELATIVA)
-   ========================================================================== */
+.hero { min-height: 45vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 40px 20px; background: linear-gradient(135deg, rgba(10,34,64,0.95), rgba(0,180,216,0.85)), url('https://images.unsplash.com/photo-1516253593875-bd7ba052fbc5?q=80&w=1200') center/cover no-repeat; }
+.badge { background-color: var(--cor-secundaria); color: #000; padding: 6px 18px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+.hero h1 { font-size: 2.8rem; margin: 15px 0; font-weight: 800; }
+.hero p { max-width: 800px; margin: 0 auto 25px auto; font-size: 1.1rem; }
+.btn-main { background-color: var(--cor-secundaria); color: #000; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; }
+
+/* GRID DE INTRODUÇÃO E SLIDER CORRIGIDO */
 .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .text-block p { margin-bottom: 18px; text-align: justify; color: var(--cor-texto-secundario); }
 
-.comparison-container {
-    position: relative;
-    width: 100%;
-    height: 380px;
-    border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
-    background-color: #000;
-}
-
-.image-box {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-}
-
-.image-box img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    border-radius: 12px;
-    display: block;
-}
-
-/* Imagem de baixo fixa */
+.comparison-container { position: relative; width: 100%; height: 380px; border-radius: 12px; box-shadow: 0 6px 20px rgba(0,0,0,0.2); background-color: #000; overflow: hidden; }
+.image-box { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.image-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; }
 .img-before { z-index: 1; }
+.img-after { z-index: 2; opacity: 0.5; transition: opacity 0.05s linear; }
 
-/* Imagem de cima controlada por opacidade */
-.img-after { 
-    z-index: 2; 
-    opacity: 0; /* JS altera de 0 a 1 */
-    transition: opacity 0.1s linear;
-}
-
-.label-box {
-    position: absolute; bottom: 20px; padding: 8px 16px;
-    background: rgba(0, 0, 0, 0.85); color: #ffffff;
-    font-size: 0.85rem; border-radius: 6px; font-weight: bold; z-index: 5;
-}
+.label-box { position: absolute; bottom: 70px; padding: 6px 12px; background: rgba(0, 0, 0, 0.85); color: #ffffff; font-size: 0.8rem; border-radius: 4px; font-weight: bold; z-index: 5; }
 .label-box.before { right: 20px; border-bottom: 3px solid var(--cor-perigo); }
 .label-box.after { left: 20px; border-bottom: 3px solid var(--cor-secundaria); }
 
-/* Caixa de controle do input embaixo da imagem */
-.slider-control-wrapper {
-    position: absolute;
-    bottom: 0; left: 0;
-    width: 100%; padding: 15px;
-    background: rgba(10, 25, 47, 0.85);
-    border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;
-    z-index: 10;
-}
-.slider-comparison {
-    width: 100%; cursor: pointer;
-    accent-color: var(--cor-secundaria);
-}
+.slider-control-wrapper { position: absolute; bottom: 0; left: 0; width: 100%; padding: 15px; background: rgba(10, 25, 47, 0.9); border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; z-index: 10; }
+.slider-comparison { width: 100%; cursor: pointer; accent-color: var(--cor-secundaria); }
 
-/* SISTEMA PARA DALTONISMO NO QUIZ */
-.options-container { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
-.btn-opt { background-color: var(--cor-fundo); border: 2px solid rgba(0,0,0,0.15); color: var(--cor-texto); padding: 14px; text-align: left; cursor: pointer; border-radius: 6px; font-size: 1rem; font-weight: 600; }
-.btn-opt.correct { background-color: #d4edda !important; color: #155724 !important; border: 4px dashed #155724 !important; }
-.btn-opt.wrong { background-color: #f8d7da !important; color: #721c24 !important; border: 4px double #721c24 !important; }
+/* MURAL DE PRÁTICAS AGROECOLÓGICAS */
+.mural-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 20px; }
+.mural-card { background: var(--cor-fundo); border: 1px solid rgba(0,0,0,0.08); border-top: 5px solid var(--cor-secundaria); padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.mural-card h3 { color: var(--cor-principal); margin-bottom: 12px; font-size: 1.25rem; }
 
-/* MAPA, ACORDIONS E SIMULADORES */
+/* ACORDION DE TECNOLOGIA DIGITAL */
+.accordion-container { max-width: 900px; margin: 20px auto 0 auto; display: flex; flex-direction: column; gap: 15px; }
+.accordion-item { border: 1px solid rgba(0,0,0,0.1); border-radius: 6px; background: var(--cor-fundo-alt); overflow: hidden; }
+.accordion-trigger { width: 100%; background: #0a192f; color: white; border: none; padding: 18px 20px; text-align: left; font-size: 1.1rem; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
+.accordion-trigger:hover { background: #112240; }
+.accordion-content { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out; background: var(--cor-fundo); }
+.accordion-item.active .accordion-content { padding: 20px; max-height: 200px; border-top: 1px solid rgba(0,0,0,0.05); }
+
+/* SISTEMA GEOGRÁFICO DE MAPAS */
 .indicators-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; }
-.map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo-alt); padding: 20px; border-radius: 8px; }
+.map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo); padding: 20px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.08); }
 .mini-map { width: 240px; height: 180px; background-color: #cbd5e1; border-radius: 10px; position: relative; border: 2px dashed #0a192f; margin: 15px 0; }
-.map-node { position: absolute; padding: 6px 14px; background: #0a192f; color: #fff; font-size: 0.75rem; font-weight: bold; border-radius: 20px; cursor: pointer; }
+.map-node { position: absolute; padding: 6px 14px; background: #0a192f; color: #fff; font-size: 0.75rem; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.2); }
 .node-norte { top: 25px; left: 90px; } .node-oeste { top: 75px; left: 15px; } .node-sul { bottom: 25px; right: 35px; }
-.buttons-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-.btn-geo { background-color: var(--cor-fundo); border: 1px solid rgba(0,0,0,0.15); padding: 11px; cursor: pointer; border-radius: 4px; text-align: left; font-weight: 600; color: var(--cor-texto); }
-.btn-geo.active, .btn-geo:hover { background-color: #0a192f; color: #ffffff; }
-.display-panel { background-color: var(--cor-fundo-alt); padding: 35px; border-radius: 8px; border-left: 5px solid var(--cor-secundaria); }
+.buttons-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 15px; }
+.btn-geo { background-color: var(--cor-fundo-alt); border: 1px solid rgba(0,0,0,0.1); padding: 11px; cursor: pointer; border-radius: 4px; text-align: left; font-weight: 600; color: var(--cor-texto); }
+.btn-geo.active, .btn-geo:hover { background-color: #0a192f; color: #ffffff; border-color: #0a192f; }
+.display-panel { background-color: var(--cor-fundo); padding: 35px; border-radius: 8px; border-left: 5px solid var(--cor-secundaria); box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+
+/* SIMULADORES E BOTÕES DE CLIMA */
 .simulators-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
-.sim-card { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 4px solid var(--cor-botao); }
+.sim-card { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 4px solid var(--cor-botao); box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; }
 .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; background: var(--cor-fundo); color: var(--cor-texto); }
-.btn-action { width: 100%; background-color: var(--cor-botao); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-.result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo); border-left: 4px solid var(--cor-secundaria); }
-.sensor-display { padding: 15px; text-align: center; font-weight: bold; border-radius: 4px; margin-top: 15px; }
-.status-ideal { background-color: #d4edda; color: #155724; }
+.btn-action { width: 100%; background-color: var(--cor-botao); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+.btn-action:hover { background-color: #0056b3; }
+.sensor-buttons { display: flex; gap: 10px; margin-bottom: 15px; }
+.btn-weather { flex: 1; border: none; padding: 10px; font-weight: bold; border-radius: 4px; cursor: pointer; }
+.btn-calor { background-color: #ffe6cc; color: #cc6600; }
+.btn-chuva { background-color: #e1f5fe; color: #0288d1; }
+.sensor-display { padding: 15px; text-align: center; font-weight: bold; border-radius: 4px; }
+.status-ideal { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+
+/* QUIZ E RPG */
 .card-gamification { border-top-color: var(--cor-alerta); }
-.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo); padding: 12px; border-radius: 6px; font-weight: bold; margin-bottom: 15px; }
-.animar-scroll { opacity: 0; transform: translateY(25px); transition: all 0.5s ease-out; }
+.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo); padding: 12px; border-radius: 6px; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.05); }
+.options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.btn-opt { background-color: var(--cor-fundo); border: 1px solid rgba(0,0,0,0.12); color: var(--cor-texto); padding: 12px 15px; text-align: left; cursor: pointer; border-radius: 6px; font-size: 0.95rem; font-weight: 600; }
+.btn-opt:hover { background-color: var(--cor-fundo-alt); }
+.btn-opt.correct { background-color: #d4edda !important; color: #155724 !important; border: 2px dashed #155724 !important; }
+.btn-opt.wrong { background-color: #f8d7da !important; color: #721c24 !important; border: 2px double #721c24 !important; }
+
+/* ELEMENTOS GERAIS */
+.result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo); border-left: 4px solid var(--cor-secundaria); font-weight: 500; }
+.animar-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s ease-out; }
 .animar-scroll.ativo { opacity: 1; transform: translateY(0); }
-.footer { background-color: #0a192f; color: #ffffff; padding: 25px 0; text-align: center; margin-top: 40px; }
+.footer { background-color: #0a192f; color: #ffffff; padding: 25px 0; text-align: center; margin-top: 40px; border-top: 2px solid var(--cor-secundaria); }
 
 @media (max-width: 768px) {
     .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: #0a192f; padding: 20px; }

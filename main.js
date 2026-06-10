@@ -1,13 +1,12 @@
 /**
  * ARQUIVO: main.js
- * FUNCIONALIDADE: Correções mecânicas completas de acessibilidade, 
- * menu lateral estável e troca de imagens por opacidade absoluta.
+ * FUNCIONALIDADE: Sistema interativo completo mapeado com os textos das imagens.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // 1. DISPARADOR INDEPENDENTE DO VLIBRAS
+    // 1. DISPARADOR INTEGRADO DO VLIBRAS
     // ==========================================================================
     if (window.VLibras) {
         new window.VLibras.Widget('https://vlibras.gov.br/app');
@@ -26,50 +25,50 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 2. CORREÇÃO DA ENGRENAGEM (MENU DE ACESSIBILIDADE FIXO)
+    // 2. CONTROLE DO MENU DA ENGRENAGEM (ACESSIBILIDADE)
     // ==========================================================================
     const trigger = document.getElementById("accessibility-trigger");
     const menu = document.getElementById("accessibility-menu");
 
     if (trigger && menu) {
         trigger.addEventListener("click", (e) => {
-            e.stopPropagation(); // Impede o clique de fechar imediatamente
-            const estiloAtual = window.getComputedStyle(menu).display;
-            
-            if (estiloAtual === "none") {
-                menu.style.display = "flex";
-            } else {
-                menu.style.display = "none";
-            }
-        });
-
-        // Fecha o menu caso o usuário clique em qualquer outro canto da tela
-        document.addEventListener("click", () => {
-            menu.style.display = "none";
-        });
-
-        // Impede que o menu feche ao clicar dentro dele próprio
-        menu.addEventListener("click", (e) => {
             e.stopPropagation();
+            const estiloAtual = window.getComputedStyle(menu).display;
+            menu.style.display = (estiloAtual === "none") ? "flex" : "none";
         });
+
+        document.addEventListener("click", () => { menu.style.display = "none"; });
+        menu.addEventListener("click", (e) => { e.stopPropagation(); });
     }
 
     // ==========================================================================
-    // 3. RESOLUÇÃO ABSOLUTA DA IMAGEM ANTES/DEPOIS (FILTRO DE OPACIDADE)
+    // 3. SLIDER ANTES/DEPOIS DA INTRODUÇÃO (MÉTODO SEGURO DA OPACIDADE)
     // ==========================================================================
     const sliderSolo = document.getElementById("slider-solo");
     const imgAfterBox = document.getElementById("img-after-box");
 
     if (sliderSolo && imgAfterBox) {
+        // Define o valor padrão em 50% (meio a meio) igual na foto
+        imgAfterBox.style.opacity = sliderSolo.value / 100;
+
         sliderSolo.addEventListener("input", (e) => {
-            const valor = e.target.value;
-            // Transforma o valor de 0-100 em escala decimal de opacidade (0.0 a 1.0)
-            imgAfterBox.style.opacity = valor / 100;
+            imgAfterBox.style.opacity = e.target.value / 100;
         });
     }
 
     // ==========================================================================
-    // 4. CENTRAL DE INFORMAÇÕES GEOGRÁFICAS AMPLADA
+    // 4. FUNCIONALIDADE DO ACORDION (ABAS DA SEÇÃO TECNOLOGIA)
+    // ==========================================================================
+    const triggersAccordion = document.querySelectorAll(".accordion-trigger");
+    triggersAccordion.forEach(trigger => {
+        trigger.addEventListener("click", function() {
+            const item = this.parentElement;
+            item.classList.toggle("active");
+        });
+    });
+
+    // ==========================================================================
+    // 5. CENTRAL DE RELATÓRIOS GEOGRÁFICOS (TEXTOS DA FOTO 5 E 6)
     // ==========================================================================
     const dadosRegioes = {
         "pr": { 
@@ -116,9 +115,9 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!dados) return;
         painel.innerHTML = `
             <h3>${dados.titulo}</h3>
-            <p style="margin-top: 12px;"><strong>🌾 Cenário de Produção:</strong> ${dados.prod}</p>
-            <p style="margin-top: 8px;"><strong>💧 Ação Ambiental:</strong> ${dados.gestao}</p>
-            <p style="margin-top: 8px;"><strong>⚡ Tecnologia Aplicada:</strong> ${dados.tech}</p>
+            <p style="margin-top: 15px;"><strong>🌾 Cenário de Production:</strong> ${dados.prod}</p>
+            <p style="margin-top: 10px;"><strong>💧 Ação Ambiental:</strong> ${dados.gestao}</p>
+            <p style="margin-top: 10px;"><strong>⚡ Tecnologia Aplicada:</strong> ${dados.tech}</p>
         `;
     };
 
@@ -130,19 +129,62 @@ document.addEventListener("DOMContentLoaded", () => {
             atualizarPainelGeo(regiao);
         });
     });
-    atualizarPainelGeo("pr");
+    atualizarPainelGeo("pr"); // Estado inicial padrão
 
     // ==========================================================================
-    // 5. QUIZ CONHECIMENTO AGRO
+    // 6. SIMULADORES DO LABORATÓRIO DIGITAL (Foto 7)
+    // ==========================================================================
+    const btnCalcular = document.getElementById("btn-calcular");
+    if(btnCalcular) {
+        btnCalcular.addEventListener("click", () => {
+            const hec = parseFloat(document.getElementById("calc-hec").value) || 0;
+            const cultura = document.getElementById("calc-cultura").value;
+            const resBox = document.getElementById("result-calc");
+            
+            let dose = cultura === "soja" ? hec * 15 : hec * 22;
+            resBox.style.display = "block";
+            resBox.innerHTML = `✅ Dosagem Recomendada: <strong>${dose} Litros</strong> de biofertilizante ativo diluído para aplicação foliar estável.`;
+        });
+    }
+
+    const sliderUmidade = document.getElementById("slider-umidade");
+    const valUmidade = document.getElementById("val-umidade");
+    const sensorStatus = document.getElementById("sensor-status");
+
+    const atualizarSensorStatus = (valor) => {
+        if(!sliderUmidade) return;
+        valUmidade.textContent = valor;
+        if(valor < 35) {
+            sensorStatus.className = "sensor-display";
+            sensorStatus.style.backgroundColor = "#f8d7da";
+            sensorStatus.style.color = "#721c24";
+            sensorStatus.textContent = "Alerta: Solo Seco. Válvulas automáticas abertas por gotejamento.";
+        } else if (valor > 75) {
+            sensorStatus.className = "sensor-display";
+            sensorStatus.style.backgroundColor = "#fff3cd";
+            sensorStatus.style.color = "#856404";
+            sensorStatus.textContent = "Aviso: Saturação Detectada. Sensores bloqueando novas irrigações.";
+        } else {
+            sensorStatus.className = "sensor-display status-ideal";
+            sensorStatus.style.backgroundColor = ""; 
+            sensorStatus.style.color = "";
+            sensorStatus.textContent = "Status: Umidade Ideal. Válvulas de água fechadas para economia.";
+        }
+    };
+
+    if(sliderUmidade) {
+        sliderUmidade.addEventListener("input", (e) => atualizarSensorStatus(e.target.value));
+        document.getElementById("btn-calor").addEventListener("click", () => { sliderUmidade.value = 15; atualizarSensorStatus(15); });
+        document.getElementById("btn-chuva").addEventListener("click", () => { sliderUmidade.value = 85; atualizarSensorStatus(85); });
+    }
+
+    // ==========================================================================
+    // 7. QUIZ DE CONHECIMENTO (Foto 8)
     // ==========================================================================
     const quizD = [
         { q: "Qual a vantagem biológica de proteger as matas ciliares?", o: ["Evita o assoreamento de rios e resguarda nascentes", "Aumenta o espaço para tratores", "Reduz a quantidade de chuva"], a: 0 },
         { q: "O que caracteriza a tecnologia de precisão no Agrinho?", o: ["Uso manual de ferramentas rudimentares", "Aplicação cirúrgica baseada em dados de sensores", "Uso de produtos sem dosagem"], a: 1 },
-        { q: "Como a energia fotovoltaica flutuante ajuda os reservatórios?", o: ["Esquenta a água", "Reduz a evaporação e gera energia limpa", "Aumenta a acidez da água"], a: 1 },
-        { q: "Qual a função dos sensores de umidade enterrados no solo?", o: ["Medir o peso dos tratores", "Acionar a irrigação apenas quando necessário", "Contar insetos"], a: 1 },
-        { q: "O que é o Plantio Direto na Palhada?", o: ["Plantar sementes sobre os restos da colheita anterior", "Queimar a palha seca", "Plantar sem solo"], a: 0 },
-        { q: "O que significa a sigla IoT na tecnologia do campo?", o: ["Internet das Coisas, conectando sensores reais", "Inovação de Tratores", "Irrigação de Outono"], a: 0 },
-        { q: "Qual o benefício da rotação de culturas na agricultura sustentável?", o: ["Deixar a terra sem nenhuma planta por anos", "Evitar o esgotamento de nutrientes específicos do solo", "Trocar de fazenda a cada colheita"], a: 1 }
+        { q: "Como a energia fotovoltaica flutuante ajuda os reservatórios?", o: ["Esquenta a água", "Reduz a evaporação e gera energia limpa", "Aumenta a acidez da água"], a: 1 }
     ];
     
     let qAt = 0;
@@ -166,13 +208,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     
                     if (i === quizD[qAt].a) {
                         b.classList.add("correct");
-                        b.textContent = "✔️ ACERTOU! — " + b.textContent; 
                     } else {
                         b.classList.add("wrong");
-                        b.textContent = "❌ ERROU! — " + b.textContent;  
                         botoes[quizD[qAt].a].classList.add("correct");
                     }
-                    setTimeout(() => { qAt++; carregarQ(); }, 2000);
+                    setTimeout(() => { qAt++; carregarQ(); }, 1800);
                 });
                 oB.appendChild(b);
             });
@@ -180,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("quiz-body").style.display = "none";
             document.getElementById("quiz-result").style.display = "block";
             document.getElementById("medal-title").textContent = "Quiz Concluído!";
-            document.getElementById("medal-desc").textContent = "🏅 Excelente! Você completou as 7 perguntas de sustentabilidade!";
+            document.getElementById("medal-desc").textContent = "🏆 Excelente! Você completou todas as perguntas de sustentabilidade!";
         }
     };
 
@@ -196,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarQ();
 
     // ==========================================================================
-    // 6. MINI-RPG INTEGRADO
+    // 8. MINI-RPG ESTRATÉGICO (Foto 8)
     // ==========================================================================
     let rpg = { safra: 50, eco: 50, caixa: 5000 };
     let etapaRpg = 1;
@@ -207,8 +247,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const resBox = document.getElementById("rpg-result");
         if(!txt) return;
 
-        document.getElementById("rpg-safra").textContent = rpg.safra;
-        document.getElementById("rpg-eco").textContent = rpg.eco;
+        document.getElementById("rpg-safra").textContent = rpg.safra + "%";
+        document.getElementById("rpg-eco").textContent = rpg.eco + "%";
         document.getElementById("rpg-caixa").textContent = rpg.caixa;
         ch.innerHTML = "";
 
@@ -221,50 +261,19 @@ document.addEventListener("DOMContentLoaded", () => {
             ch.appendChild(b1); ch.appendChild(b2);
         } 
         else if (etapaRpg === 2) {
-            txt.textContent = "Etapa 2: Uma praga ameaça a região. Qual método de controle você aplicará?";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Controle Biológico com predadores naturais (Custo: R$ 1.000)";
-            b1.addEventListener("click", () => { rpg.eco += 20; rpg.safra += 15; rpg.caixa -= 1000; etapaRpg = 3; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Defensivo químico padrão emergencial (Custo: R$ 1.500)";
-            b2.addEventListener("click", () => { rpg.safra += 20; rpg.eco -= 20; rpg.caixa -= 1500; etapaRpg = 3; rodarRpg(); });
-            ch.appendChild(b1); ch.appendChild(b2);
-        }
-        else if (etapaRpg === 3) {
-            txt.textContent = "Etapa 3: Preparação do solo para a próxima safra. Qual técnica usar?";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Plantio Direto na Palhada protetora (Custo: R$ 800)";
-            b1.addEventListener("click", () => { rpg.eco += 25; rpg.safra += 15; rpg.caixa -= 800; etapaRpg = 4; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Arar de forma convencional revirando a terra (Custo: R$ 500)";
-            b2.addEventListener("click", () => { rpg.eco -= 25; rpg.caixa -= 500; etapaRpg = 4; rodarRpg(); });
-            ch.appendChild(b1); ch.appendChild(b2);
-        }
-        else if (etapaRpg === 4) {
-            txt.textContent = "Etapa 4: Monitoramento de dados da plantação. Deseja contratar mapeamento por drone?";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Sim, contratar voos multiespectrais quinzenais (Custo: R$ 700)";
-            b1.addEventListener("click", () => { rpg.safra += 15; rpg.caixa -= 700; etapaRpg = 5; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Não, fazer a inspeção de forma visual a pé (Sem custo)";
-            b2.addEventListener("click", () => { rpg.safra -= 10; etapaRpg = 5; rodarRpg(); });
-            ch.appendChild(b1); ch.appendChild(b2);
-        }
-        else if (etapaRpg === 5) {
-            txt.textContent = "Etapa 5: Destinação dos resíduos e palhas sobressalentes da colheita.";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Transformar em compostagem orgânica viva (Custo: R$ 500)";
-            b1.addEventListener("click", () => { rpg.eco += 20; rpg.caixa -= 500; etapaRpg = 6; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Descartar fora da propriedade sem tratamento (Sem custo)";
-            b2.addEventListener("click", () => { rpg.eco -= 15; etapaRpg = 6; rodarRpg(); });
+            txt.textContent = "Etapa 2: Uma praga ameaça as plantações da divisa. Qual será sua estratégia?";
+            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Aplicar defensivo microbiológico seletivo (Custo: R$ 1.000)";
+            b1.addEventListener("click", () => { rpg.eco += 15; rpg.safra += 15; rpg.caixa -= 1000; etapaRpg = 3; rodarRpg(); });
+            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Usar pulverização química em massa tradicional (Custo: R$ 800)";
+            b2.addEventListener("click", () => { rpg.safra += 20; rpg.eco -= 20; rpg.caixa -= 800; etapaRpg = 3; rodarRpg(); });
             ch.appendChild(b1); ch.appendChild(b2);
         }
         else {
-            txt.textContent = "🎉 Jornada Finalizada! Relatório de Performance:";
+            txt.textContent = "Jornada Finalizada com sucesso!";
             ch.innerHTML = "";
             resBox.style.display = "block";
-            
             const msgFinal = document.getElementById("rpg-final-msg");
-            if (rpg.eco >= 80 && rpg.safra >= 70) {
-                msgFinal.textContent = "🏆 Gestor de Elite! Equilíbrio ecológico e rendimento de alto nível!";
-            } else if (rpg.caixa < 1000) {
-                msgFinal.textContent = "⚠️ Alerta Financeiro: A sustentabilidade foi boa, mas seu caixa está baixo!";
-            } else {
-                msgFinal.textContent = "👍 Fazenda Estável: Bons resultados, mas pode usar mais tecnologias verdes.";
-            }
+            msgFinal.textContent = (rpg.eco >= 65 && rpg.safra >= 60) ? "🏆 Sucesso Absoluto! Você alcançou o equilíbrio perfeito de produção verde!" : "👍 Ciclo Encerrado! Analise suas escolhas e tente otimizar seu caixa.";
         }
     };
 
@@ -279,7 +288,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     rodarRpg();
 
-    // TEMAS
+    // GERENCIADOR DE TEMAS ACESSIBILIDADE
     const gerenciarTema = (btnId, className) => {
         const btn = document.getElementById(btnId);
         if(!btn) return;
@@ -293,27 +302,27 @@ document.addEventListener("DOMContentLoaded", () => {
     gerenciarTema("btn-contrast", "high-contrast");
     gerenciarTema("btn-dyslexia", "dyslexia-font");
 
-    // FONTES
+    // RESIZER DE FONTE
     let rootSize = 18;
     document.getElementById("btn-font-plus").addEventListener("click", () => {
-        if (rootSize < 26) { rootSize += 2; document.documentElement.style.setProperty('--tamanho-base', `${rootSize}px`); }
+        if (rootSize < 24) { rootSize += 2; document.documentElement.style.setProperty('--tamanho-base', `${rootSize}px`); }
     });
     document.getElementById("btn-font-minus").addEventListener("click", () => {
         if (rootSize > 14) { rootSize -= 2; document.documentElement.style.setProperty('--tamanho-base', `${rootSize}px`); }
     });
 
-    // MENU MOBILE
+    // MOBILE TOGGLE
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
     if(menuToggle && navMenu) {
         menuToggle.addEventListener("click", () => navMenu.classList.toggle("active"));
     }
 
-    // SCROLL ANIMATION
+    // ANIMATION SCROLL
     const elScroll = document.querySelectorAll(".animar-scroll");
     const checkScroll = () => {
         elScroll.forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add("ativo");
+            if (el.getBoundingClientRect().top < window.innerHeight * 0.9) el.classList.add("ativo");
         });
     };
     window.addEventListener("scroll", checkScroll);
