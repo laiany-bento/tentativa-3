@@ -1,0 +1,229 @@
+/* ==========================================================================
+   CONFIGURAÇÃO DE VARIÁVEIS - PALETA AZUL TECH, PRETO E BRANCO
+   ========================================================================== */
+:root {
+    --cor-principal: #0a192f;        /* Azul Escuro Profundo */
+    --cor-secundaria: #00b4d8;       /* Azul Piscina / Claro */
+    --cor-fundo: #ffffff;            /* Branco */
+    --cor-fundo-alt: #f8f9fa;        /* Cinza claro para seções */
+    --cor-texto: #212529;            /* Preto Suave/Grafite para leitura */
+    --cor-botao: #0077b6;            /* Azul Médio Corp */
+    --cor-botao-hover: #03045e;      /* Azul Escuro */
+    --cor-alerta: #ffb703;
+    --cor-perigo: #ef233c;
+    --fonte-padrao: 'Segoe UI', Arial, sans-serif;
+    --tamanho-base: 16px;            /* Usado para o redimensionador dinâmico */
+}
+
+/* Modificações Temáticas de Acessibilidade */
+body.dark-mode {
+    --cor-principal: #020c1b;
+    --cor-secundaria: #00f5ff;       /* Azul Piscina Neon */
+    --cor-fundo: #0a192f;
+    --cor-fundo-alt: #112240;
+    --cor-texto: #f8f9fa;
+    --cor-botao: #00b4d8;
+}
+
+body.high-contrast {
+    --cor-principal: #000000;
+    --cor-secundaria: #ffff00;
+    --cor-fundo: #000000;
+    --cor-fundo-alt: #111111;
+    --cor-texto: #ffffff;
+    --cor-botao: #ffff00;
+}
+
+body.dyslexia-font {
+    --fonte-padrao: 'Comic Sans MS', sans-serif !important;
+}
+
+/* ==========================================================================
+   RESETS E CONFIGURAÇÕES GERAIS
+   ========================================================================== */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: var(--tamanho-base); }
+body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); color: var(--cor-texto); transition: all 0.3s ease; }
+.container { width: 95%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
+.section { padding: 60px 0; }
+.bg-light { background-color: var(--cor-fundo-alt); }
+.text-pool { color: var(--cor-secundaria) !important; }
+.section-title { text-align: center; margin-bottom: 40px; }
+.section-title h2 { color: var(--cor-principal); font-size: 2rem; margin-bottom: 10px; }
+
+/* ==========================================================================
+   BOTÕES FLUTUANTES (MENU ACESSIBILIDADE E LIBRAS FIXO)
+   ========================================================================== */
+.accessibility-wrapper {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    z-index: 9999;
+}
+
+.libras-wrapper {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    z-index: 9999;
+}
+
+.btn-float, .btn-float-libras {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background-color: var(--cor-botao);
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.btn-float-libras { background-color: #0056b3; } /* Azul padrão oficial Libras */
+.btn-float-libras img { width: 32px; height: 32px; filter: invert(1); }
+
+.btn-float:hover, .btn-float-libras:hover { transform: scale(1.1); }
+
+.accessibility-menu {
+    position: absolute;
+    bottom: 65px;
+    right: 0;
+    background-color: var(--cor-principal);
+    border: 2px solid var(--cor-secundaria);
+    padding: 15px;
+    border-radius: 8px;
+    display: none; /* Controlado via JS */
+    flex-direction: column;
+    gap: 10px;
+    width: 200px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+}
+
+.accessibility-menu h4 { color: #fff; text-align: center; font-size: 0.9rem; margin-bottom: 5px; }
+.accessibility-menu button {
+    background-color: rgba(255,255,255,0.1);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-align: left;
+}
+.accessibility-menu button:hover { background-color: var(--cor-secundaria); color: #000; }
+
+.font-resizer { display: flex; gap: 5px; }
+.font-resizer button { flex: 1; text-align: center !important; font-weight: bold; }
+
+/* ==========================================================================
+   HEADER E HERO
+   ========================================================================== */
+.header {
+    background-color: var(--cor-principal);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    position: sticky; top: 0; z-index: 1000;
+    border-bottom: 3px solid var(--cor-secundaria);
+}
+.logo h2 { color: #ffffff; }
+.nav-menu ul { display: flex; list-style: none; gap: 20px; }
+.nav-menu a { color: #ffffff; text-decoration: none; font-weight: 600; }
+.nav-menu a:hover { color: var(--cor-secundaria); }
+.menu-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; }
+.menu-toggle span { width: 25px; height: 3px; background-color: #ffffff; display: block; }
+
+.hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 20px; }
+.badge { background-color: var(--cor-secundaria); color: #000; padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; }
+.hero h1 { font-size: 2.8rem; margin: 15px 0; }
+.btn-main { background-color: var(--cor-secundaria); color: #000000; padding: 12px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; transition: background 0.2s; }
+.btn-main:hover { background-color: #fff; }
+
+/* ==========================================================================
+   SLIDER COMPARATIVO E CARDS
+   ========================================================================== */
+.intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.comparison-container { position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 8px; }
+.comparison-container img { width: 100%; height: 300px; object-fit: cover; }
+.image-before, .image-after { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+.image-after { width: 50%; overflow: hidden; z-index: 2; }
+.label-box { position: absolute; bottom: 15px; padding: 5px 10px; background: rgba(0,0,0,0.8); color: #fff; font-size: 0.8rem; border-radius: 4px; z-index: 3; }
+.label-box.before { right: 15px; } .label-box.after { left: 15px; }
+.slider-comparison { position: absolute; -webkit-appearance: none; appearance: none; width: 100%; height: 100%; background: transparent; z-index: 4; cursor: ew-resize; top: 0; left: 0; }
+.slider-comparison::-webkit-slider-thumb { -webkit-appearance: none; width: 6px; height: 300px; background: var(--cor-secundaria); }
+
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.card-eco { background-color: var(--cor-fundo); padding: 25px; border-radius: 8px; border-top: 5px solid var(--cor-secundaria); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+/* ==========================================================================
+   ACCORDION E MINI MAPA ESQUEMÁTICO
+   ========================================================================== */
+.tech-accordion { max-width: 800px; margin: 0 auto; }
+.accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 10px; }
+.accordion-header { width: 100%; background: var(--cor-fundo-alt); border: none; text-align: left; padding: 15px; font-size: 1.1rem; font-weight: bold; color: var(--cor-principal); cursor: pointer; }
+.accordion-content { padding: 0 15px; max-height: 0; overflow: hidden; transition: all 0.3s ease-out; }
+
+.indicators-layout { display: grid; grid-template-columns: 300px 1fr; gap: 30px; }
+.map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo); padding: 15px; border-radius: 8px; }
+.mini-map { width: 220px; height: 180px; background-color: #e2e8f0; border-radius: 10px; position: relative; border: 2px dashed var(--cor-principal); }
+
+/* Nós visuais do mini mapa do estado */
+.map-node { position: absolute; padding: 6px 12px; background: var(--cor-principal); color: #fff; font-size: 0.75rem; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: background 0.2s; }
+.map-node:hover { background: var(--cor-secundaria); color: #000; }
+.node-norte { top: 20px; left: 80px; }
+.node-oeste { top: 80px; left: 15px; }
+.node-sul { bottom: 20px; right: 30px; }
+
+.buttons-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; }
+.btn-geo { background-color: var(--cor-fundo-alt); border: 1px solid var(--cor-principal); padding: 10px; cursor: pointer; border-radius: 4px; text-align: left; }
+.btn-geo.active, .btn-geo:hover { background-color: var(--cor-principal); color: #ffffff; }
+.display-panel { background-color: var(--cor-fundo); padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+/* ==========================================================================
+   SIMULADORES, QUIZ E RPG
+   ========================================================================== */
+.simulators-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.sim-card { background-color: var(--cor-fundo); padding: 25px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 4px solid var(--cor-principal); }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
+.form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; background: var(--cor-fundo); color: var(--cor-texto); }
+.btn-action { width: 100%; background-color: var(--cor-botao); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+.btn-action:hover { background-color: var(--cor-botao-hover); }
+.result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo-alt); border-left: 4px solid var(--cor-secundaria); }
+
+.btn-clima-group { display: flex; gap: 10px; margin-bottom: 15px; }
+.btn-weather { flex: 1; padding: 8px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
+#btn-calor { background-color: #ffe3e3; color: #c92a2a; }
+#btn-chuva { background-color: #e7f5ff; color: #1c7ed6; }
+.sensor-display { padding: 15px; text-align: center; font-weight: bold; border-radius: 4px; margin-top: 15px; }
+.status-ideal { background-color: #d4edda; color: #155724; }
+.status-alerta { background-color: #fff3cd; color: #856404; }
+.status-perigo { background-color: #f8d7da; color: #721c24; }
+
+.options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+.btn-opt { background-color: var(--cor-fundo-alt); border: 1px solid rgba(0,0,0,0.1); color: var(--cor-texto); padding: 12px; text-align: left; cursor: pointer; border-radius: 4px; }
+.btn-opt.correct { background-color: #d4edda !important; color: #155724; }
+.btn-opt.wrong { background-color: #f8d7da !important; color: #721c24; }
+.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo-alt); padding: 10px; border-radius: 4px; font-weight: bold; margin-bottom: 15px; }
+
+/* ANIMAÇÃO DE SCROLL */
+.animar-scroll { opacity: 0; transform: translateY(20px); transition: all 0.5s ease-out; }
+.animar-scroll.ativo { opacity: 1; transform: translateY(0); }
+
+.footer { background-color: var(--cor-principal); color: #ffffff; padding: 25px 0; border-top: 3px solid var(--cor-secundaria); }
+
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+    .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: var(--cor-principal); padding: 20px; }
+    .nav-menu.active { display: block; }
+    .nav-menu ul { flex-direction: column; gap: 15px; }
+    .menu-toggle { display: flex; }
+    .intro-grid, .indicators-layout, .simulators-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 1.8rem; }
+}
