@@ -1,6 +1,6 @@
 /**
  * ARQUIVO: main.js
- * FUNCIONALIDADE: Sistema interativo completo mapeado com os textos das imagens.
+ * FUNCIONALIDADE: Sistema interativo mapeado com os textos oficiais e slider profissional por largura.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,17 +42,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 3. SLIDER ANTES/DEPOIS DA INTRODUÇÃO (MÉTODO SEGURO DA OPACIDADE)
+    // 3. SLIDER ANTES/DEPOIS PROFISSIONAL (MÉTODO DE RECORTE POR LARGURA)
     // ==========================================================================
     const sliderSolo = document.getElementById("slider-solo");
     const imgAfterBox = document.getElementById("img-after-box");
 
     if (sliderSolo && imgAfterBox) {
-        // Define o valor padrão em 50% (meio a meio) igual na foto
-        imgAfterBox.style.opacity = sliderSolo.value / 100;
+        // Inicializa o recorte em 50% acompanhando o valor nativo do HTML
+        imgAfterBox.style.width = sliderSolo.value + "%";
 
+        // Atualiza a largura em tempo real conforme o usuário arrasta
         sliderSolo.addEventListener("input", (e) => {
-            imgAfterBox.style.opacity = e.target.value / 100;
+            imgAfterBox.style.width = e.target.value + "%";
         });
     }
 
@@ -68,7 +69,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // 5. CENTRAL DE RELATÓRIOS GEOGRÁFICOS (TEXTOS DA FOTO 5 E 6)
+    // 5. CENTRAL DE RELATÓRIOS GEOGRÁFICOS
     // ==========================================================================
     const dadosRegioes = {
         "pr": { 
@@ -86,7 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "sp": { 
             titulo: "Estado de São Paulo", 
             prod: "Referência global no cultivo de cana-de-açúcar, citros e produção de biocombustíveis limpos.", 
-            gestao: "Programa Setorial Agrolegal focado na restauração de áreas de preservação permanente e reuso de água industrial nas usinas.", 
+            gestao: "Programa Setorial Agrolegal focado na restauracão de áreas de preservação permanente e reuso de água industrial nas usinas.", 
             tech: "Grande concentração de startups (AgTechs) focadas em rastreabilidade por Blockchain." 
         },
         "mg": { 
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!dados) return;
         painel.innerHTML = `
             <h3>${dados.titulo}</h3>
-            <p style="margin-top: 15px;"><strong>🌾 Cenário de Production:</strong> ${dados.prod}</p>
+            <p style="margin-top: 15px;"><strong>🌾 Cenário de Produção:</strong> ${dados.prod}</p>
             <p style="margin-top: 10px;"><strong>💧 Ação Ambiental:</strong> ${dados.gestao}</p>
             <p style="margin-top: 10px;"><strong>⚡ Tecnologia Aplicada:</strong> ${dados.tech}</p>
         `;
@@ -129,10 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
             atualizarPainelGeo(regiao);
         });
     });
-    atualizarPainelGeo("pr"); // Estado inicial padrão
+    atualizarPainelGeo("pr");
 
     // ==========================================================================
-    // 6. SIMULADORES DO LABORATÓRIO DIGITAL (Foto 7)
+    // 6. SIMULADORES DO LABORATÓRIO DIGITAL
     // ==========================================================================
     const btnCalcular = document.getElementById("btn-calcular");
     if(btnCalcular) {
@@ -179,7 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 7. QUIZ DE CONHECIMENTO (Foto 8)
+    // 7. QUIZ DE CONHECIMENTO
     // ==========================================================================
     const quizD = [
         { q: "Qual a vantagem biológica de proteger as matas ciliares?", o: ["Evita o assoreamento de rios e resguarda nascentes", "Aumenta o espaço para tratores", "Reduz a quantidade de chuva"], a: 0 },
@@ -236,7 +237,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarQ();
 
     // ==========================================================================
-    // 8. MINI-RPG ESTRATÉGICO (Foto 8)
+    // 8. MINI-RPG ESTRATÉGICO
     // ==========================================================================
     let rpg = { safra: 50, eco: 50, caixa: 5000 };
     let etapaRpg = 1;
