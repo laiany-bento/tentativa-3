@@ -67,20 +67,20 @@
                 <div class="text-block">
                     <p>O Agrinho 2026 traz uma proposta pedagógica e técnica profunda: o campo não é mais apenas terra e semente, ele se transformou em um ecossistema altamente conectado e dependente de inteligência de dados.</p>
                     <p>O grande desafio da nossa geração é aumentar a eficiência global de produção agrícola sem expandir o desmatamento, garantindo que cada gota de água e cada grama de bioinsumo sejam aplicados com precisão matemática nas lavouras.</p>
-                    <p><strong>Arraste o controle central ao lado</strong> para comparar o impacto visual de uma propriedade agrícola com desperdício hídrico e erosão versus um manejo com tecnologia azul e gotejamento programado.</p>
+                    <p><strong>Arraste o controle deslizante abaixo da imagem</strong> para comparar o impacto visual de uma propriedade agrícola com desperdício hídrico e erosão versus um manejo com tecnologia azul e gotejamento programado.</p>
                 </div>
                 
-                <div class="comparison-container" aria-label="Comparativo visual de gestão hídrica">
+                <div class="comparison-container" aria-label="Comparativo visual de gestão hídrica e conservação do solo">
                     <div class="image-box img-before">
                         <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600" alt="Cenário de solo descuidado e escassez">
                         <div class="label-box before">Escassez e Desperdício</div>
                     </div>
-                    <div class="image-box img-after" id="img-after-box">
+                    <div class="image-box img-after" id="img-after-box" style="--posicao-corte: 50%;">
                         <img src="https://images.unsplash.com/photo-1464246832230-c5c9f4a294ba?q=80&w=600" alt="Cenário de manejo azul e irrigação correta">
                         <div class="label-box after">Irrigação Automatizada</div>
                     </div>
-                    <input type="range" min="0" max="100" value="50" class="slider-comparison" id="slider-solo" aria-label="Mover barra para ver antes e depois">
-                    <div class="slider-line" id="slider-separator-line"></div>
+                    <div class="slider-line" id="slider-separator-line" style="left: 50%;"></div>
+                    <input type="range" min="0" max="100" value="50" class="slider-comparison" id="slider-solo" aria-label="Mover barra para alterar visualização entre escassez e irrigação automatizada">
                 </div>
             </div>
         </section>
@@ -214,7 +214,7 @@
                         </div>
                         <div id="quiz-result" style="display: none; text-align: center;">
                             <h4 id="medal-title"></h4>
-                            <p id="medal-desc" style="font-size: 1.2rem; font-weight: bold; margin: 10px 0;"></p>
+                            <p id="medal-desc" style="font-size: 1.25rem; font-weight: bold; margin: 15px 0;"></p>
                             <button id="btn-reset-quiz" class="btn-action">Tentar Novamente</button>
                         </div>
                     </div>
@@ -227,8 +227,12 @@
                             <div>💰 Caixa: R$ <span id="rpg-caixa">5000</span></div>
                         </div>
                         <div id="rpg-body">
-                            <p id="rpg-text" style="margin-bottom: 15px; font-style: italic;"></p>
+                            <p id="rpg-text" style="margin-bottom: 15px; font-style: italic; min-height: 60px;"></p>
                             <div id="rpg-choices" class="options-container"></div>
+                        </div>
+                        <div id="rpg-result" style="display: none; text-align: center; margin-top: 15px;">
+                            <p id="rpg-final-msg" style="font-weight: bold; margin-bottom: 15px;"></p>
+                            <button id="btn-reset-rpg" class="btn-action">Reiniciar Jornada Agrícola</button>
                         </div>
                     </div>
                 </div>
@@ -243,7 +247,7 @@
     </footer>
 
     <div vw class="enabled">
-        <div vw-access-button class="active" style="display:none !important;"></div>
+        <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper>
             <div class="vw-plugin-top-wrapper"></div>
         </div>
