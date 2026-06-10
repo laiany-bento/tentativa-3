@@ -7,6 +7,7 @@
     --cor-fundo: #ffffff;            /* Branco */
     --cor-fundo-alt: #f8f9fa;        /* Cinza Claro */
     --cor-texto: #212529;            /* Preto Grafite */
+    --cor-texto-secundario: #495057; /* Texto de apoio escuro */
     --cor-botao: #0077b6;            /* Azul Corporativo */
     --cor-botao-hover: #03045e;      /* Azul Escuro Real */
     --cor-alerta: #ffb703;
@@ -15,21 +16,24 @@
     --tamanho-base: 16px;
 }
 
+/* AJUSTES PARA ALTA VISIBILIDADE NO MODO ESCURO */
 body.dark-mode {
-    --cor-principal: #020c1b;
+    --cor-principal: #00f5ff;        /* Títulos principais ganham destaque piscina */
     --cor-secundaria: #00f5ff;
-    --cor-fundo: #0a192f;
+    --cor-fundo: #0a192f;            /* Fundo Azul Escuro */
     --cor-fundo-alt: #112240;
-    --cor-texto: #f8f9fa;
+    --cor-texto: #ffffff;            /* TODOS OS TEXTOS PADRÃO FICAM BRANCOS */
+    --cor-texto-secundario: #e2e8f0; /* Subtítulos e parágrafos ganham cor clara de alto contraste */
     --cor-botao: #00b4d8;
 }
 
 body.high-contrast {
-    --cor-principal: #000000;
+    --cor-principal: #ffff00;
     --cor-secundaria: #ffff00;
     --cor-fundo: #000000;
     --cor-fundo-alt: #111111;
     --cor-texto: #ffffff;
+    --cor-texto-secundario: #ffffff;
     --cor-botao: #ffff00;
 }
 
@@ -42,13 +46,14 @@ body.dyslexia-font {
    ========================================================================== */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: var(--tamanho-base); }
-body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); color: var(--cor-texto); transition: all 0.2s ease; }
+body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); color: var(--cor-texto); transition: background-color 0.2s, color 0.2s; }
 .container { width: 95%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
 .section { padding: 60px 0; }
 .bg-light { background-color: var(--cor-fundo-alt); }
 .text-pool { color: var(--cor-secundaria) !important; }
 .section-title { text-align: center; margin-bottom: 40px; }
 .section-title h2 { color: var(--cor-principal); font-size: 2.2rem; margin-bottom: 10px; }
+.section-subtitle { color: var(--cor-texto-secundario); font-size: 1.1rem; }
 
 /* ==========================================================================
    BOTÕES FLUTUANTES EMPILHADOS À DIREITA (LIBRAS SOBRE ENGRENAGEM)
@@ -59,7 +64,7 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
     right: 25px;
     display: flex;
     flex-direction: column;
-    gap: 12px; /* Mantém o espaçamento perfeito entre eles */
+    gap: 12px;
     z-index: 999999;
 }
 
@@ -79,62 +84,34 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
     transition: transform 0.2s ease;
 }
 
-#btn-libras {
-    background-color: #0056b3; /* Cor azul internacional das libras */
-}
-
-#btn-libras img {
-    width: 30px;
-    height: 30px;
-    filter: invert(1); /* Deixa as mãozinhas em cor branca */
-}
-
-.btn-float-action:hover {
-    transform: scale(1.1);
-}
+#btn-libras { background-color: #0056b3; }
+#btn-libras img { width: 30px; height: 30px; filter: invert(1); }
+.btn-float-action:hover { transform: scale(1.1); }
 
 .accessibility-menu {
     position: absolute;
-    bottom: 135px; /* Abre perfeitamente acima dos dois botões empilhados */
+    bottom: 135px;
     right: 0;
-    background-color: var(--cor-principal);
+    background-color: #0a192f;
     border: 2px solid var(--cor-secundaria);
     padding: 15px;
     border-radius: 8px;
-    display: none; /* Controlado pelo JS */
+    display: none;
     flex-direction: column;
     gap: 10px;
     width: 210px;
     box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-
 .accessibility-menu h4 { color: #fff; text-align: center; font-size: 0.9rem; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
-.accessibility-menu button {
-    background-color: rgba(255,255,255,0.1);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 8px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 0.85rem;
-    text-align: left;
-}
+.accessibility-menu button { background-color: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 8px; border-radius: 4px; cursor: pointer; font-size: 0.85rem; text-align: left; }
 .accessibility-menu button:hover { background-color: var(--cor-secundaria); color: #000; font-weight: bold; }
 .font-resizer { display: flex; gap: 5px; }
 .font-resizer button { flex: 1; text-align: center !important; font-weight: bold; }
 
 /* ==========================================================================
-   HEADER E HERO NAVEGAÇÃO
+   HEADER E HERO
    ========================================================================== */
-.header {
-    background-color: var(--cor-principal);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 5%;
-    position: sticky; top: 0; z-index: 1000;
-    border-bottom: 3px solid var(--cor-secundaria);
-}
+.header { background-color: #0a192f; display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--cor-secundaria); }
 .logo h2 { color: #ffffff; }
 .nav-menu ul { display: flex; list-style: none; gap: 20px; }
 .nav-menu a { color: #ffffff; text-decoration: none; font-weight: 600; transition: color 0.2s; }
@@ -150,10 +127,10 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
 .btn-main:hover { background-color: #ffffff; transform: translateY(-2px); }
 
 /* ==========================================================================
-   CORREÇÃO DO ANTES E DEPOIS (SLIDER DE COMPARAÇÃO)
+   REESTRUTURAÇÃO DO CORTE DA IMAGEM (SLIDER ANTES E DEPOIS)
    ========================================================================== */
 .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-.text-block p { margin-bottom: 15px; text-align: justify; }
+.text-block p { margin-bottom: 15px; text-align: justify; color: var(--cor-texto-secundario); }
 
 .comparison-container {
     position: relative;
@@ -162,7 +139,6 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
     overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    background-color: #000;
 }
 
 .image-box {
@@ -175,17 +151,27 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
 
 .image-box img {
     width: 100%;
-    height: 100%;
+    height: 350px; /* Força a altura exata da caixa */
     object-fit: cover;
     display: block;
-    pointer-events: none;
 }
 
-/* A imagem AFTER ficará por cima, e recortada dinamicamente via JS (clip-path) */
+/* Imagem de Fundo (Antes) */
+.img-before {
+    z-index: 1;
+}
+
+/* Imagem Superior Ajustável (Depois) */
 .img-after {
     z-index: 2;
-    /* clip-path inicial será controlado via JS, começamos em 50% */
-    clip-path: inset(0 0 0 50%); 
+    width: 50%; /* JS vai mudar essa largura de 0% a 100% */
+    overflow: hidden; /* Faz o truque de esconder a sobra de imagem */
+}
+
+/* Evita que a imagem de dentro encolha quando a caixa diminuir */
+.img-after img {
+    width: 100%;
+    max-width: none;
 }
 
 .label-box {
@@ -196,12 +182,14 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
     color: #fff;
     font-size: 0.8rem;
     border-radius: 4px;
-    z-index: 3;
+    z-index: 5;
     font-weight: bold;
+    white-space: nowrap;
 }
 .label-box.before { right: 15px; border-bottom: 2px solid var(--cor-perigo); }
 .label-box.after { left: 15px; border-bottom: 2px solid var(--cor-secundaria); }
 
+/* Input Invisível por cima para capturar o arrasto do mouse/dedo */
 .slider-comparison {
     position: absolute;
     -webkit-appearance: none;
@@ -209,65 +197,62 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
     width: 100%;
     height: 100%;
     background: transparent;
-    z-index: 4;
+    z-index: 10;
     cursor: ew-resize;
     top: 0;
     left: 0;
     margin: 0;
     outline: none;
 }
-
-/* Linha central divisória móvel */
 .slider-comparison::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 6px;
+    width: 40px;
     height: 350px;
-    background: var(--cor-secundaria);
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    background: transparent;
+}
+
+/* Linha Visual que segue o controle */
+.slider-line {
+    position: absolute;
+    top: 0;
+    left: 50%; /* JS vai mover isso */
+    width: 4px;
+    height: 100%;
+    background-color: var(--cor-secundaria);
+    z-index: 6;
+    box-shadow: 0 0 8px rgba(0,0,0,0.5);
+    pointer-events: none;
 }
 
 /* ==========================================================================
-   MURAL DE PRÁTICAS E ACCORDION
+   DEMAIS COMPONENTES DE CONTEÚDO
    ========================================================================== */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-.card-eco { background-color: var(--cor-fundo); padding: 30px; border-radius: 8px; border-top: 5px solid var(--cor-secundaria); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.card-eco { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 5px solid var(--cor-secundaria); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
 .card-eco h3 { margin-bottom: 10px; color: var(--cor-principal); }
+.card-eco p { color: var(--cor-texto-secundario); }
 
 .tech-accordion { max-width: 800px; margin: 0 auto; }
 .accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; background: var(--cor-fundo-alt); border-radius: 4px; }
-.accordion-header { width: 100%; background: transparent; border: none; text-align: left; padding: 18px; font-size: 1.1rem; font-weight: bold; color: var(--cor-principal); cursor: pointer; display: flex; justify-content: space-between; }
+.accordion-header { width: 100%; background: transparent; border: none; text-align: left; padding: 18px; font-size: 1.1rem; font-weight: bold; color: var(--cor-principal); cursor: pointer; }
 .accordion-content { padding: 0 18px; max-height: 0; overflow: hidden; transition: all 0.3s ease-in-out; }
-.accordion-content p { padding-bottom: 18px; text-align: justify; }
+.accordion-content p { padding-bottom: 18px; text-align: justify; color: var(--cor-texto-secundario); }
 
-/* ==========================================================================
-   MINI MAPA INTEGRADO
-   ========================================================================== */
 .indicators-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; }
-.map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo); padding: 20px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-.mini-map { width: 240px; height: 180px; background-color: #cbd5e1; border-radius: 10px; position: relative; border: 2px dashed var(--cor-principal); margin: 15px 0; }
-
-.map-node { position: absolute; padding: 6px 14px; background: var(--cor-principal); color: #fff; font-size: 0.75rem; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.2); transition: all 0.2s; }
-.map-node:hover { background: var(--cor-secundaria); color: #000; transform: scale(1.05); }
-.node-norte { top: 25px; left: 90px; }
-.node-oeste { top: 75px; left: 15px; }
-.node-sul { bottom: 25px; right: 35px; }
-
+.map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo-alt); padding: 20px; border-radius: 8px; }
+.mini-map { width: 240px; height: 180px; background-color: #cbd5e1; border-radius: 10px; position: relative; border: 2px dashed #0a192f; margin: 15px 0; }
+.map-node { position: absolute; padding: 6px 14px; background: #0a192f; color: #fff; font-size: 0.75rem; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.2); }
+.node-norte { top: 25px; left: 90px; } .node-oeste { top: 75px; left: 15px; } .node-sul { bottom: 25px; right: 35px; }
 .buttons-panel { display: flex; flex-direction: column; gap: 8px; width: 100%; }
-.btn-geo { background-color: var(--cor-fundo-alt); border: 1px solid rgba(0,0,0,0.15); padding: 11px; cursor: pointer; border-radius: 4px; text-align: left; font-weight: 600; }
-.btn-geo.active, .btn-geo:hover { background-color: var(--cor-principal); color: #ffffff; border-color: var(--cor-principal); }
-.display-panel { background-color: var(--cor-fundo); padding: 35px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--cor-secundaria); }
+.btn-geo { background-color: var(--cor-fundo); border: 1px solid rgba(0,0,0,0.15); padding: 11px; cursor: pointer; border-radius: 4px; text-align: left; font-weight: 600; color: var(--cor-texto); }
+.btn-geo.active, .btn-geo:hover { background-color: #0a192f; color: #ffffff; }
+.display-panel { background-color: var(--cor-fundo-alt); padding: 35px; border-radius: 8px; border-left: 5px solid var(--cor-secundaria); }
 
-/* ==========================================================================
-   SIMULADORES, QUIZ E RPG
-   ========================================================================== */
 .simulators-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px; }
-.sim-card { background-color: var(--cor-fundo); padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border-top: 4px solid var(--cor-principal); }
-.form-group { margin-bottom: 15px; }
-.form-group label { display: block; margin-bottom: 6px; font-weight: 600; }
+.sim-card { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 4px solid var(--cor-botao); }
 .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; background: var(--cor-fundo); color: var(--cor-texto); }
 .btn-action { width: 100%; background-color: var(--cor-botao); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; }
-.btn-action:hover { background-color: var(--cor-botao-hover); }
-.result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo-alt); border-left: 4px solid var(--cor-secundaria); }
+.result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo); border-left: 4px solid var(--cor-secundaria); }
 
 .btn-clima-group { display: flex; gap: 10px; margin-bottom: 15px; }
 .btn-weather { flex: 1; padding: 10px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
@@ -278,24 +263,20 @@ body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); col
 .status-alerta { background-color: #fff3cd; color: #856404; }
 .status-perigo { background-color: #f8d7da; color: #721c24; }
 
-.card-gamification { border-top-color: var(--cor-alerta); }
 .options-container { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
-.btn-opt { background-color: var(--cor-fundo-alt); border: 1px solid rgba(0,0,0,0.1); color: var(--cor-texto); padding: 12px; text-align: left; cursor: pointer; border-radius: 4px; }
+.btn-opt { background-color: var(--cor-fundo); border: 1px solid rgba(0,0,0,0.1); color: var(--cor-texto); padding: 12px; text-align: left; cursor: pointer; border-radius: 4px; }
 .btn-opt.correct { background-color: #d4edda !important; color: #155724; font-weight: bold; }
 .btn-opt.wrong { background-color: #f8d7da !important; color: #721c24; }
-.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo-alt); padding: 10px; border-radius: 4px; font-weight: bold; margin-bottom: 15px; }
+.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo); padding: 10px; border-radius: 4px; font-weight: bold; margin-bottom: 15px; }
 
-/* ANIMAÇÕES */
 .animar-scroll { opacity: 0; transform: translateY(25px); transition: all 0.5s ease-out; }
 .animar-scroll.ativo { opacity: 1; transform: translateY(0); }
-.footer { background-color: var(--cor-principal); color: #ffffff; padding: 30px 0; text-align: center; border-top: 3px solid var(--cor-secundaria); }
+.footer { background-color: #0a192f; color: #ffffff; padding: 30px 0; text-align: center; border-top: 3px solid var(--cor-secundaria); }
 
-/* LAYOUT RESPONSÍVEL */
 @media (max-width: 768px) {
-    .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: var(--cor-principal); padding: 20px; }
+    .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: #0a192f; padding: 20px; }
     .nav-menu.active { display: block; }
     .nav-menu ul { flex-direction: column; gap: 15px; }
     .menu-toggle { display: flex; }
     .intro-grid, .indicators-layout, .simulators-grid { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2rem; }
 }

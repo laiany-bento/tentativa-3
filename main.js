@@ -1,13 +1,63 @@
 /**
  * ARQUIVO: main.js
- * FUNCIONALIDADE: Correção do Slider (Antes/Depois) via Clip-Path, Painel de Acessibilidade,
- * Libras integrado e simuladores agronômicos.
+ * FUNCIONALIDADE: Correção e Inicialização Automática do VLibras, Lógica de Largura 
+ * para o Slider de Imagens e Temas de Acessibilidade.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
     
     // ==========================================================================
-    // 1. MENU EXPANSIVEL DE ACESSIBILIDADE (BOTÃO ENGRENAGEM COORDENADO)
+    // 1. INICIALIZAÇÃO E CORREÇÃO DO BOTÃO DO VLIBRAS
+    // ==========================================================================
+    // Garante que o plugin seja construído na tela assim que a página carregar
+    window.addEventListener('load', () => {
+        if (window.VLibras) {
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        }
+    });
+
+    const btnLibras = document.getElementById("btn-libras");
+    btnLibras.addEventListener("click", () => {
+        // Dispara a abertura ou fechamento oficial da janela do boneco virtual
+        if (window.vlibrasWidget) {
+            window.vlibrasWidget.toggleOpen();
+        } else {
+            alert("O sistema de Libras ainda está carregando os servidores públicos do Governo. Por favor, aguarde 3 segundos e clique novamente.");
+        }
+    });
+
+    // ==========================================================================
+    // 2. CORREÇÃO DEFINITIVA DO SLIDER DE IMAGENS (LARGURA DINÂMICA)
+    // ==========================================================================
+    const sliderSolo = document.getElementById("slider-solo");
+    const imgAfterBox = document.getElementById("img-after-box");
+    const separatorLine = document.getElementById("slider-separator-line");
+
+    if (sliderSolo && imgAfterBox && separatorLine) {
+        // Alinha a imagem interna para manter o tamanho real correto no corte
+        const internalImg = imgAfterBox.querySelector("img");
+        
+        const redimensionarSlider = () => {
+            const containerWidth = sliderSolo.offsetWidth;
+            internalImg.style.width = `${containerWidth}px`;
+        };
+
+        // Roda ao carregar e se a tela mudar de tamanho (responsividade)
+        redimensionarSlider();
+        window.addEventListener("resize", redimensionarSlider);
+
+        sliderSolo.addEventListener("input", (e) => {
+            const valorPosicao = e.target.value;
+            
+            // Ajusta a largura da caixa de cima
+            imgAfterBox.style.width = `${valorPosicao}%`;
+            // Move a linha divisória centralizada com o indicador
+            separatorLine.style.left = `${valorPosicao}%`;
+        });
+    }
+
+    // ==========================================================================
+    // 3. MENU EXPANSÍVEL DE CONFIGURAÇÕES DE ACESSIBILIDADE
     // ==========================================================================
     const trigger = document.getElementById("accessibility-trigger");
     const menu = document.getElementById("accessibility-menu");
@@ -28,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
     menu.addEventListener("click", (e) => e.stopPropagation());
 
     // ==========================================================================
-    // 2. TEMAS E LOCALSTORAGE
+    // 4. CHANGER DE TEMAS (MODO ESCURO, CONTRASTE, DISLEXIA)
     // ==========================================================================
     const gerenciarTema = (btnId, className) => {
         const btn = document.getElementById(btnId);
@@ -46,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
     gerenciarTema("btn-dyslexia", "dyslexia-font");
 
     // ==========================================================================
-    // 3. CONTROLADOR DE TAMANHO DE FONTE (A+ / A-)
+    // 5. REDIMENSIONADOR DE TEXTOS (A+ / A-)
     // ==========================================================================
     const btnFontPlus = document.getElementById("btn-font-plus");
     const btnFontMinus = document.getElementById("btn-font-minus");
@@ -67,22 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // ==========================================================================
-    // 4. CORREÇÃO CRÍTICA: FUNCIONAMENTO DO SLIDER (ANTES E DEPOIS)
-    // ==========================================================================
-    const sliderSolo = document.getElementById("slider-solo");
-    const imgAfter = document.querySelector(".img-after");
-
-    if (sliderSolo && imgAfter) {
-        sliderSolo.addEventListener("input", (e) => {
-            const valorSlider = e.target.value;
-            // Modifica o recorte da imagem de cima (img-after) em tempo real
-            // Inset(cima, direita, baixo, esquerda) -> Controlamos o corte na esquerda
-            imgAfter.style.clipPath = `inset(0 0 0 ${valorSlider}%)`;
-        });
-    }
-
-    // ==========================================================================
-    // 5. BANCO DE DADOS FORMATIVO: CENTRAL DE INDICADORES DO MAPA
+    // 6. MINI MAPA DO PARANÁ INTERATIVO
     // ==========================================================================
     const dadosRegioes = {
         "pr": { 
@@ -145,10 +180,10 @@ document.addEventListener("DOMContentLoaded", () => {
             atualizarPainelGeo(regiao);
         });
     });
-    atualizarPainelGeo("pr"); // Carrega Paraná por padrão
+    atualizarPainelGeo("pr");
 
     // ==========================================================================
-    // 6. MENU RESPONSÍVEL MOBILE
+    // 7. MENUS E ACORDIONS SECUNDÁRIOS
     // ==========================================================================
     const menuToggle = document.querySelector(".menu-toggle");
     const navMenu = document.querySelector(".nav-menu");
@@ -159,17 +194,10 @@ document.addEventListener("DOMContentLoaded", () => {
         navMenu.classList.toggle("active");
     });
 
-    // ==========================================================================
-    // 7. ACCORDION EXPANSÍVEL
-    // ==========================================================================
     document.querySelectorAll(".accordion-header").forEach(header => {
         header.addEventListener("click", () => {
             const content = header.nextElementSibling;
-            if (content.style.maxHeight) {
-                content.style.maxHeight = null;
-            } else {
-                content.style.maxHeight = content.scrollHeight + "px";
-            }
+            content.style.maxHeight = content.style.maxHeight ? null : content.scrollHeight + "px";
         });
     });
 
@@ -187,17 +215,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let compostoFator = cult === "milho" ? 2.5 : (cult === "soja" ? 2.0 : 1.8);
             resultCalc.innerHTML = `
-                <h4>Dosagem Recomendada para Substituição de NPK Químico:</h4>
+                <h4>Dosagem Recomendada:</h4>
                 <p>📍 Área de Trabalho: <strong>${ha} Hectares</strong></p>
-                <p>🪱 Composto Protetor Orgânico: <strong> ${(ha * compostoFator).toFixed(1)} Toneladas</strong></p>
-                <p>🧪 Biofertilizantes de Bactérias Vivas: <strong> ${(ha * 15).toFixed(0)} Litros</strong></p>
+                <p>🪱 Composto Orgânico: <strong> ${(ha * compostoFator).toFixed(1)} Toneladas</strong></p>
+                <p>🧪 Biofertilizantes: <strong> ${(ha * 15).toFixed(0)} Litros</strong></p>
             `;
             resultCalc.style.display = "block";
         });
     }
 
     // ==========================================================================
-    // 9. SIMULADOR DE SENSOR DE UMIDADE DO SOLO
+    // 9. SIMULADOR DO SENSOR DE UMIDADE
     // ==========================================================================
     const sliderUmidade = document.getElementById("slider-umidade");
     const valUmidade = document.getElementById("val-umidade");
@@ -207,13 +235,13 @@ document.addEventListener("DOMContentLoaded", () => {
         valUmidade.textContent = val;
         sensorStatus.className = "sensor-display";
         if(val < 30) {
-            sensorStatus.textContent = "Alerta Crítico: Solo Seco! Desencadeando liberação de válvulas automáticas por gotejamento."; 
+            sensorStatus.textContent = "Alerta Crítico: Solo Seco! Abrindo gotejamento automático."; 
             sensorStatus.classList.add("status-perigo");
         } else if(val > 70) {
-            sensorStatus.textContent = "Alerta Hídrico: Solo Saturado/Alagado. Desligando todos os sistemas de aspersão."; 
+            sensorStatus.textContent = "Alerta Hídrico: Solo Saturado. Desligando aspersores."; 
             sensorStatus.classList.add("status-alerta");
         } else {
-            sensorStatus.textContent = "Status: Umidade Perfeita detectada por IoT. Mantendo economia de água ativada."; 
+            sensorStatus.textContent = "Status: Umidade Perfeita. Economia ativa."; 
             sensorStatus.classList.add("status-ideal");
         }
     };
@@ -224,11 +252,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 10. QUIZ E RPG RURAL FORMATIVOS
+    // 10. QUIZ E RPG RURAL
     // ==========================================================================
     const quizD = [
-        { q: "Qual a vantagem biológica de proteger as matas ciliares no entorno das fazendas?", o: ["Evita o assoreamento de rios e resguarda as nascentes d'água", "Aumenta o espaço para circulação de tratores grandes", "Impede o crescimento excessivo de mato selvagem"], a: 0 },
-        { q: "O que caracteriza a tecnologia de precisão adotada no Agrinho 2026?", o: ["O uso manual de ferramentas rudimentares", "A aplicação de insumos de forma uniforme em toda a fazenda", "A aplicação cirúrgica baseada em dados reais de sensores e satélites"], a: 2 }
+        { q: "Qual a vantagem biológica de proteger as matas ciliares?", o: ["Evita o assoreamento de rios e resguarda as nascentes d'água", "Aumenta o espaço para circulação de tratores grandes", "Impede o crescimento de mato"], a: 0 },
+        { q: "O que caracteriza a tecnologia de precisão adotada no Agrinho?", o: ["O uso manual de ferramentas rudimentares", "A aplicação uniforme sem critérios", "A aplicação cirúrgica baseada em dados reais de sensores e satélites"], a: 2 }
     ];
     let qAt = 0;
     const carregarQ = () => {
@@ -247,9 +275,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         } else {
             document.getElementById("quiz-body").style.display = "none";
-            const res = document.getElementById("quiz-result"); res.style.display = "block";
+            document.getElementById("quiz-result").style.display = "block";
             document.getElementById("medal-title").textContent = "Quiz Concluído!";
-            document.getElementById("medal-desc").textContent = "🏅 Excelente! Você dominou os fundamentos de Sustentabilidade do Agrinho!";
+            document.getElementById("medal-desc").textContent = "🏅 Excelente! Você domina os fundamentos do Agrinho!";
         }
     };
     carregarQ();
@@ -266,10 +294,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const ch = document.getElementById("rpg-choices"); ch.innerHTML = "";
         
         const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Sim (Gera energia própria e diminui a perda de água por evaporação)";
-        b1.addEventListener("click", () => { rpg.eco += 25; rpg.caixa -= 2000; rpg.safra += 10; txt.textContent = "Sucesso! Seus custos elétricos despencaram e sua reserva de água está protegida."; ch.innerHTML = ""; });
+        b1.addEventListener("click", () => { rpg.eco += 25; rpg.caixa -= 2000; rpg.safra += 10; txt.textContent = "Sucesso! Custos reduzidos e água protegida."; ch.innerHTML = ""; });
         
-        const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Não (Evitar gastos imediatos e manter caixa livre)";
-        b2.addEventListener("click", () => { rpg.eco -= 15; txt.textContent = "A forte evaporação do verão reduziu drasticamente seu estoque de água disponível."; ch.innerHTML = ""; });
+        const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Não (Manter dinheiro em caixa)";
+        b2.addEventListener("click", () => { rpg.eco -= 15; txt.textContent = "A forte evaporação do verão reduziu seu estoque de água."; ch.innerHTML = ""; });
         
         ch.appendChild(b1); ch.appendChild(b2);
     };
