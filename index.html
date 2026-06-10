@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agrinho 2026 - Tecnologia Azul, Campo e Sustentabilidade</title>
+    <title>Agrinho 2026 - Tecnologia Azul e Sustentabilidade</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div vw class="enabled">
+        <div vw-access-button class="active" style="display:none !important;"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
 
     <div class="accessibility-container-fixed">
         <button id="btn-libras" class="btn-float-action" aria-label="Ativar acessibilidade em Libras">
             <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Simbolo_Libras.svg" alt="Símbolo de Libras">
         </button>
-        
         <button id="accessibility-trigger" class="btn-float-action" aria-label="Abrir Opções de Acessibilidade" aria-expanded="false">⚙️</button>
-        
         <div id="accessibility-menu" class="accessibility-menu" aria-hidden="true">
             <h4>Menu de Acessibilidade</h4>
             <button id="btn-dark">🌓 Modo Escuro</button>
@@ -31,10 +36,8 @@
         <div class="logo">
             <h2>Agrinho <span class="text-pool">2026</span></h2>
         </div>
-        <button class="menu-toggle" aria-label="Abrir Menu de Navegação" aria-expanded="false">
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="menu-toggle" aria-label="Abrir Menu">
+            <span></span><span></span><span></span>
         </button>
         <nav class="nav-menu">
             <ul>
@@ -65,22 +68,22 @@
             </div>
             <div class="intro-grid">
                 <div class="text-block">
-                    <p>O Agrinho 2026 traz uma proposta pedagógica e técnica profunda: o campo não é mais apenas terra e semente, ele se transformou em um ecossistema altamente conectado e dependente de inteligência de dados.</p>
-                    <p>O grande desafio da nossa geração é aumentar a eficiência global de produção agrícola sem expandir o desmatamento, garantindo que cada gota de água e cada grama de bioinsumo sejam aplicados com precisão matemática nas lavouras.</p>
-                    <p><strong>Arraste o controle deslizante abaixo da imagem</strong> para comparar o impacto visual de uma propriedade agrícola com desperdício hídrico e erosão versus um manejo com tecnologia azul e gotejamento programado.</p>
+                    <p>O Agrinho 2026 traz uma proposta pedagógica e técnica profunda: o campo se transformou em um ecossistema altamente conectado e dependente de inteligência de dados.</p>
+                    <p>O grande desafio é aumentar a eficiência global de produção agrícola sem expandir o desmatamento, garantindo que cada gota de água seja aplicada com precisão matemática nas lavouras.</p>
+                    <p><strong>Arraste o controle central na imagem ao lado</strong> para comparar visualmente o cenário de escassez e desperdício contra o manejo de irrigação automatizada por gotejamento.</p>
                 </div>
                 
-                <div class="comparison-container" aria-label="Comparativo visual de gestão hídrica e conservação do solo">
+                <div class="comparison-container" id="slider-container-block">
                     <div class="image-box img-before">
                         <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600" alt="Cenário de solo descuidado e escassez">
                         <div class="label-box before">Escassez e Desperdício</div>
                     </div>
-                    <div class="image-box img-after" id="img-after-box" style="--posicao-corte: 50%;">
-                        <img src="https://images.unsplash.com/photo-1464246832230-c5c9f4a294ba?q=80&w=600" alt="Cenário de manejo azul e irrigação correta">
+                    <div class="image-box img-after" id="img-after-box">
+                        <img src="https://images.unsplash.com/photo-1464246832230-c5c9f4a294ba?q=80&w=600" id="img-after-dinamica" alt="Cenário de manejo azul e irrigação correta">
                         <div class="label-box after">Irrigação Automatizada</div>
                     </div>
-                    <div class="slider-line" id="slider-separator-line" style="left: 50%;"></div>
-                    <input type="range" min="0" max="100" value="50" class="slider-comparison" id="slider-solo" aria-label="Mover barra para alterar visualização entre escassez e irrigação automatizada">
+                    <div class="slider-line" id="slider-separator-line"></div>
+                    <input type="range" min="0" max="100" value="50" class="slider-comparison" id="slider-solo" aria-label="Mover separador visual">
                 </div>
             </div>
         </section>
@@ -94,15 +97,15 @@
                 <div class="cards-grid">
                     <div class="card-eco">
                         <h3>💧 Gestão Inteligente da Água</h3>
-                        <p>Através do uso de microaspersores interligados a estações meteorológicas, a irrigação só é acionada quando o sensor detecta déficit hídrico real na raiz. Isso economiza até 60% de água se comparado aos métodos tradicionais por inundação.</p>
+                        <p>Através do uso de microaspersores interligados a estações meteorológicas, a irrigação só é acionada quando o sensor detecta déficit hídrico real na raiz.</p>
                     </div>
                     <div class="card-eco">
                         <h3>🌳 Preservação de Mananciais</h3>
-                        <p>As matas ciliares e as áreas de preservação permanente (APPs) funcionam como barreiras naturais que evitam o assoreamento dos rios rurais. Sensores de nível monitoram a vazão das nascentes para garantir a estabilidade do lençol freático.</p>
+                        <p>As matas ciliares e as áreas de preservação permanente (APPs) funcionam como barreiras naturais que evitam o assoreamento dos rios rurais.</p>
                     </div>
                     <div class="card-eco">
                         <h3>☀️ Energia Fotovoltaica Flutuante</h3>
-                        <p>A instalação de painéis solares sobre as superfícies de represas e tanques de captação cumpre dupla função protetiva: gera eletricidade 100% limpa para alimentar as bombas de campo e reduz em até 30% a perda de água por evaporação natural.</p>
+                        <p>A instalação de painéis solares sobre as superfícies de represas gera eletricidade limpa e reduz em até 30% a perda de água por evaporação natural.</p>
                     </div>
                 </div>
             </div>
@@ -117,13 +120,13 @@
                 <div class="accordion-item">
                     <button class="accordion-header">🛰️ Satélites, Drones e Sensoriamento Multiespectral</button>
                     <div class="accordion-content">
-                        <p>Os drones modernos do Agrinho 2026 não apenas filmam, eles utilizam sensores infravermelhos multiespectrais. Ao sobrevoarem a lavoura, medem o índice de clorofila das plantas. Com isso, o produtor sabe exatamente qual pedaço da plantação precisa de nutrientes ou está sofrendo ataques de pragas antes mesmo que o olho humano consiga enxergar a olho nu.</p>
+                        <p>Os drones modernos utilizam sensores infravermelhos multiespectrais. Ao sobrevoarem a lavoura, medem o índice de clorofila das plantas, detectando estresse hídrico antes do olho humano.</p>
                     </div>
                 </div>
                 <div class="accordion-item">
                     <button class="accordion-header">🧠 IA Analítica, Algoritmos e Internet das Coisas (IoT)</button>
                     <div class="accordion-content">
-                        <p>Sensores enterrados no solo transmitem dados de 15 em 15 minutos via redes sem fio (como LoRaWAN) diretamente para computadores em nuvem. A Inteligência Artificial processa esses dados cruzando-os com previsões meteorológicas de radares e modelos climáticos complexos, prevendo com exatidão a produtividade final e emitindo alertas preventivos de geadas ou secas severas.</p>
+                        <p>Sensores enterrados no solo transmitem dados via redes sem fio diretamente para computadores em nuvem. A Inteligência Artificial processa esses dados prevendo com exatidão necessidades de manejo.</p>
                     </div>
                 </div>
             </div>
@@ -132,21 +135,23 @@
         <section id="indicadores" class="section bg-light">
             <div class="container animar-scroll">
                 <div class="section-title">
-                    <h2>Central de Informações & Mini Mapa</h2>
-                    <p class="section-subtitle">Interaja diretamente com os pontos geográficos mapeados no estado ou utilize os botões nacionais.</p>
+                    <h2>Central de Informações & Indicadores Expandidos</h2>
+                    <p class="section-subtitle">Interaja diretamente com os nós do mapa ou selecione os botões de estado para relatórios aprofundados.</p>
                 </div>
                 <div class="indicators-layout">
                     <div class="map-wrapper">
                         <h4>Esquema de Regiões</h4>
-                        <div class="mini-map" role="img" aria-label="Mini mapa interativo simplificado do Paraná">
-                            <div class="map-node node-norte" data-region="pr-norte" title="Norte do Paraná">Norte</div>
-                            <div class="map-node node-oeste" data-region="pr-oeste" title="Oeste do Paraná">Oeste</div>
-                            <div class="map-node node-sul" data-region="pr-sul" title="Sul / Campos Gerais">Sul</div>
+                        <div class="mini-map" role="img" aria-label="Mini mapa interativo do Paraná">
+                            <div class="map-node node-norte" data-region="pr-norte">Norte</div>
+                            <div class="map-node node-oeste" data-region="pr-oeste">Oeste</div>
+                            <div class="map-node node-sul" data-region="pr-sul">Sul</div>
                         </div>
                         <div class="buttons-panel" style="margin-top: 25px;">
                             <button class="btn-geo active" data-region="pr">Paraná Geral</button>
                             <button class="btn-geo" data-region="mt">Mato Grosso</button>
                             <button class="btn-geo" data-region="sp">São Paulo</button>
+                            <button class="btn-geo" data-region="mg">Minas Gerais</button>
+                            <button class="btn-geo" data-region="rs">Rio Grande do Sul</button>
                         </div>
                     </div>
                     <div class="display-panel" id="painel-indicadores" aria-live="polite">
@@ -164,7 +169,6 @@
             <div class="simulators-grid">
                 <div class="sim-card">
                     <h3>🧮 Calculadora Inteligente de Bioinsumos</h3>
-                    <p>Descubra as necessidades exatas para substituir fertilizantes sintéticos industriais por compostagem orgânica viva.</p>
                     <div class="form-group">
                         <label for="calc-hec">Tamanho da Área (Hectares):</label>
                         <input type="number" id="calc-hec" min="1" value="10">
@@ -183,7 +187,6 @@
 
                 <div class="sim-card">
                     <h3>🌡️ Sensor Virtual de Umidade do Solo</h3>
-                    <p>O coração da automação azul: regule a barra ou force eventos extremos para ver a reação do sistema de irrigação.</p>
                     <div class="form-group">
                         <label for="slider-umidade">Umidade Coletada: <span id="val-umidade">50</span>%</label>
                         <input type="range" id="slider-umidade" min="0" max="100" value="50">
@@ -203,7 +206,7 @@
             <div class="container animar-scroll">
                 <div class="section-title">
                     <h2>Central de Gamificação Educativa</h2>
-                    <p class="section-subtitle">Avalie o aprendizado técnico e teste suas capacidades de tomada de decisão executiva no campo.</p>
+                    <p class="section-subtitle">Avalie seu aprendizado técnico com novos níveis de probabilidade e tomada de decisão.</p>
                 </div>
                 <div class="simulators-grid">
                     <div class="sim-card card-gamification">
@@ -227,12 +230,12 @@
                             <div>💰 Caixa: R$ <span id="rpg-caixa">5000</span></div>
                         </div>
                         <div id="rpg-body">
-                            <p id="rpg-text" style="margin-bottom: 15px; font-style: italic; min-height: 60px;"></p>
+                            <p id="rpg-text" style="margin-bottom: 15px; font-style: italic; min-height: 70px;"></p>
                             <div id="rpg-choices" class="options-container"></div>
                         </div>
                         <div id="rpg-result" style="display: none; text-align: center; margin-top: 15px;">
                             <p id="rpg-final-msg" style="font-weight: bold; margin-bottom: 15px;"></p>
-                            <button id="btn-reset-rpg" class="btn-action">Reiniciar Jornada Agrícola</button>
+                            <button id="btn-reset-rpg" class="btn-action">Reiniciar Jornada do Campo</button>
                         </div>
                     </div>
                 </div>
@@ -246,14 +249,7 @@
         </div>
     </footer>
 
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-
     <script src="main.js"></script>
 </body>
 </html>

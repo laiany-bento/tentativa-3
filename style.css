@@ -1,137 +1,76 @@
 /* ==========================================================================
-   CONFIGURAÇÃO DE VARIÁVEIS - MELHORIA DE FONTE E ACESSIBILIDADE
+   VARIÁVEIS COMPACTAS - LEITURA AMPLIADA DE ALTA VISIBILIDADE
    ========================================================================== */
 :root {
     --cor-principal: #0a192f;        
     --cor-secundaria: #00b4d8;       
     --cor-fundo: #ffffff;            
     --cor-fundo-alt: #f8f9fa;        
-    --cor-texto: #1a1e21;            /* Preto de altíssima leitura */
-    --cor-texto-secundario: #343a40; /* Cinza escuro para facilitar a leitura */
+    --cor-texto: #111111;            
+    --cor-texto-secundario: #2d3748; 
     --cor-botao: #0077b6;            
-    --cor-botao-hover: #03045e;      
     --cor-alerta: #d97706;
     --cor-perigo: #dc2626;
-    --fonte-padrao: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    --tamanho-base: 18px;            /* FONTE AUMENTADA DE 16PX PARA 18PX PARA MELHOR VISUALIZAÇÃO */
+    --fonte-padrao: 'Inter', system-ui, -apple-system, sans-serif;
+    --tamanho-base: 18px;            /* FONTE ROBUSTA PADRÃO */
 }
 
-/* CORREÇÃO CRÍTICA DO MODO ESCURO PARA TEXTOS ESCUROS */
+/* CORREÇÃO DO MODO ESCURO PARA LEITURA DE TEXTOS SECUNDÁRIOS */
 body.dark-mode {
-    --cor-principal: #38bdf8;        /* Títulos ganham azul celeste de alto contraste */
+    --cor-principal: #38bdf8;        
     --cor-secundaria: #38bdf8;
     --cor-fundo: #0b1329;            
     --cor-fundo-alt: #1c2541;
-    --cor-texto: #ffffff;            /* Força todos os textos a ficarem totalmente brancos */
-    --cor-texto-secundario: #f1f5f9; /* Subtítulos ganham tom claro excelente */
+    --cor-texto: #ffffff;            
+    --cor-texto-secundario: #f1f5f9; /* TEXTO SECUNDÁRIO TOTALMENTE VISÍVEL E CLARO */
     --cor-botao: #38bdf8;
 }
 
 body.high-contrast {
-    --cor-principal: #ffff00;
-    --cor-secundaria: #ffff00;
-    --cor-fundo: #000000;
-    --cor-fundo-alt: #121212;
-    --cor-texto: #ffffff;
-    --cor-texto-secundario: #ffffff;
-    --cor-botao: #ffff00;
+    --cor-principal: #ffff00; --cor-secundaria: #ffff00; --cor-fundo: #000000;
+    --cor-fundo-alt: #121212; --cor-texto: #ffffff; --cor-texto-secundario: #ffffff; --cor-botao: #ffff00;
 }
 
-body.dyslexia-font {
-    --fonte-padrao: 'Comic Sans MS', sans-serif !important;
-}
+body.dyslexia-font { --fonte-padrao: 'Comic Sans MS', sans-serif !important; }
 
-/* ==========================================================================
-   CONFIGURAÇÕES GERAIS E LEITURA CONFORTÁVEL
-   ========================================================================== */
+/* LAYOUT STRUCT */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; font-size: var(--tamanho-base); }
-body { 
-    font-family: var(--fonte-padrao); 
-    background-color: var(--cor-fundo); 
-    color: var(--cor-texto); 
-    line-height: 1.6; /* Espaçamento entre linhas aumentado para conforto de leitura */
-    transition: background-color 0.2s, color 0.2s; 
-}
+body { font-family: var(--fonte-padrao); background-color: var(--cor-fundo); color: var(--cor-texto); line-height: 1.6; }
 .container { width: 95%; max-width: 1200px; margin: 0 auto; padding: 20px 0; }
 .section { padding: 60px 0; }
 .bg-light { background-color: var(--cor-fundo-alt); }
 .text-pool { color: var(--cor-secundaria) !important; }
 .section-title { text-align: center; margin-bottom: 40px; }
-.section-title h2 { color: var(--cor-principal); font-size: 2.4rem; margin-bottom: 12px; font-weight: 800; }
-.section-subtitle { color: var(--cor-texto-secundario); font-size: 1.2rem; font-weight: 500; }
+.section-title h2 { color: var(--cor-principal); font-size: 2.4rem; font-weight: 800; }
+.section-subtitle { color: var(--cor-texto-secundario); font-size: 1.2rem; }
 
-/* ==========================================================================
-   BOTÕES FLUTUANTES EMPILHADOS À DIREITA (LIBRAS SOBRE ENGRENAGEM)
-   ========================================================================== */
-.accessibility-container-fixed {
-    position: fixed;
-    bottom: 25px;
-    right: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    z-index: 999999;
-}
-
-.btn-float-action {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: var(--cor-botao);
-    color: white;
-    font-size: 1.6rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-}
+/* BOTÕES DE ACESSIBILIDADE */
+.accessibility-container-fixed { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 12px; z-index: 999999; }
+.btn-float-action { width: 60px; height: 60px; border-radius: 50%; background-color: var(--cor-botao); color: white; font-size: 1.6rem; border: none; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.3); display: flex; align-items: center; justify-content: center; }
 #btn-libras { background-color: #0056b3; }
 #btn-libras img { width: 32px; height: 32px; filter: invert(1); }
-.btn-float-action:hover { transform: scale(1.1); }
-
-.accessibility-menu {
-    position: absolute;
-    bottom: 145px;
-    right: 0;
-    background-color: #0a192f;
-    border: 2px solid var(--cor-secundaria);
-    padding: 15px;
-    border-radius: 8px;
-    display: none;
-    flex-direction: column;
-    gap: 10px;
-    width: 220px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-}
-.accessibility-menu h4 { color: #fff; text-align: center; font-size: 0.95rem; margin-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); padding-bottom: 5px; }
-.accessibility-menu button { background-color: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 10px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; text-align: left; font-weight: 600; }
-.accessibility-menu button:hover { background-color: var(--cor-secundaria); color: #000; }
+.accessibility-menu { position: absolute; bottom: 145px; right: 0; background-color: #0a192f; border: 2px solid var(--cor-secundaria); padding: 15px; border-radius: 8px; display: none; flex-direction: column; gap: 10px; width: 220px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.accessibility-menu h4 { color: #fff; text-align: center; font-size: 0.95rem; padding-bottom: 5px; border-bottom: 1px solid rgba(255,255,255,0.2); }
+.accessibility-menu button { background-color: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 10px; border-radius: 4px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
 .font-resizer { display: flex; gap: 5px; }
-.font-resizer button { flex: 1; text-align: center !important; font-weight: bold; }
+.font-resizer button { flex: 1; text-align: center !important; }
 
-/* ==========================================================================
-   HEADER E HERO
-   ========================================================================== */
+/* HEADER e HERO */
 .header { background-color: #0a192f; display: flex; justify-content: space-between; align-items: center; padding: 15px 5%; position: sticky; top: 0; z-index: 1000; border-bottom: 3px solid var(--cor-secundaria); }
 .logo h2 { color: #ffffff; font-weight: 800; }
 .nav-menu ul { display: flex; list-style: none; gap: 20px; }
-.nav-menu a { color: #ffffff; text-decoration: none; font-weight: 600; transition: color 0.2s; }
-.nav-menu a:hover { color: var(--cor-secundaria); }
+.nav-menu a { color: #ffffff; text-decoration: none; font-weight: 600; }
 .menu-toggle { display: none; flex-direction: column; gap: 5px; background: transparent; border: none; cursor: pointer; }
 .menu-toggle span { width: 25px; height: 3px; background-color: #ffffff; display: block; }
-
-.hero { min-height: 55vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 30px; }
+.hero { min-height: 50vh; display: flex; align-items: center; justify-content: center; text-align: center; color: #ffffff; padding: 30px; }
 .hero-content { max-width: 850px; }
-.badge { background-color: var(--cor-secundaria); color: #000; padding: 6px 18px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; }
-.hero h1 { font-size: 3.2rem; margin: 20px 0; font-weight: 800; text-shadow: 0 2px 5px rgba(0,0,0,0.6); }
-.btn-main { background-color: var(--cor-secundaria); color: #000000; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+.badge { background-color: var(--cor-secundaria); color: #000; padding: 6px 18px; border-radius: 20px; font-weight: bold; }
+.hero h1 { font-size: 3rem; margin: 20px 0; font-weight: 800; }
+.btn-main { background-color: var(--cor-secundaria); color: #000; padding: 14px 40px; text-decoration: none; border-radius: 6px; font-weight: bold; display: inline-block; }
 
 /* ==========================================================================
-   CORREÇÃO INTEGRAL DO SLIDER (ANTES E DEPOIS) VIA CLIP-PATH EM VARIÁVEL
+   SISTEMA ROBUSTO DO SLIDER (MONTAGEM DE SOBREPOSIÇÃO FÍSICA)
    ========================================================================== */
 .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
 .text-block p { margin-bottom: 18px; text-align: justify; color: var(--cor-texto-secundario); }
@@ -142,33 +81,42 @@ body {
     height: 380px;
     overflow: hidden;
     border-radius: 12px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
 }
 
 .image-box {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
     height: 100%;
-    pointer-events: none;
+    width: 100%;
 }
 
 .image-box img {
-    width: 100%;
-    height: 100%;
+    height: 380px;
     object-fit: cover;
     display: block;
 }
 
-/* Imagem Base (Antes - Escassez) */
-.img-before { z-index: 1; }
+/* Camada inferior estável */
+.img-before {
+    z-index: 1;
+}
+.img-before img {
+    width: 100%;
+}
 
-/* Imagem de Cima Reativa (Depois - Irrigação) */
+/* Camada superior dinamicamente redimensionada pelo contêiner JS com overflow oculto */
 .img-after {
     z-index: 2;
-    /* Usa a variável controlada pelo JavaScript para recortar perfeitamente */
-    clip-path: inset(0 0 0 var(--posicao-corte));
+    width: 50%; /* JS altera a largura da div e esconde a sobra */
+    overflow: hidden;
+}
+
+/* Força a imagem interna a manter a largura total fixa do contêiner externo para não amassar */
+.img-after img {
+    width: 100%;
+    max-width: none;
 }
 
 .label-box {
@@ -179,13 +127,13 @@ body {
     color: #ffffff;
     font-size: 0.85rem;
     border-radius: 6px;
-    z-index: 5;
     font-weight: bold;
+    z-index: 5;
+    white-space: nowrap;
 }
 .label-box.before { right: 20px; border-bottom: 3px solid var(--cor-perigo); }
 .label-box.after { left: 20px; border-bottom: 3px solid var(--cor-secundaria); }
 
-/* Input Invisível Superior para captura do clique/arrasto */
 .slider-comparison {
     position: absolute;
     -webkit-appearance: none;
@@ -195,24 +143,14 @@ body {
     background: transparent;
     z-index: 10;
     cursor: ew-resize;
-    top: 0;
-    left: 0;
-    margin: 0;
-    outline: none;
+    top: 0; left: 0; margin: 0; outline: none;
 }
-.slider-comparison::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 40px;
-    height: 380px;
-    background: transparent;
-}
+.slider-comparison::-webkit-slider-thumb { -webkit-appearance: none; width: 40px; height: 380px; background: transparent; }
 
-/* Linha Divisória de Alta Performance */
 .slider-line {
     position: absolute;
-    top: 0;
-    width: 4px;
-    height: 100%;
+    top: 0; left: 50%;
+    width: 4px; height: 100%;
     background-color: var(--cor-secundaria);
     z-index: 6;
     box-shadow: 0 0 10px rgba(0,0,0,0.6);
@@ -220,46 +158,30 @@ body {
     transform: translateX(-50%);
 }
 
-/* ==========================================================================
-   SUPORTE DE IDENTIFICAÇÃO EM DALTONISMO (SISTEMA VISUAL DO QUIZ)
-   ========================================================================== */
+/* INDICADORES DE CONTRASTE EXCLUSIVOS PARA DALTONISMO no QUIZ */
 .options-container { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+.btn-opt { background-color: var(--cor-fundo); border: 2px solid rgba(0,0,0,0.15); color: var(--cor-texto); padding: 14px; text-align: left; cursor: pointer; border-radius: 6px; font-size: 1rem; font-weight: 600; }
 
-.btn-opt { 
-    background-color: var(--cor-fundo); 
-    border: 2px solid rgba(0,0,0,0.15); 
-    color: var(--cor-texto); 
-    padding: 14px; 
-    text-align: left; 
-    cursor: pointer; 
-    border-radius: 6px; 
-    font-size: 1rem;
-    font-weight: 600;
-}
-
-/* CLASSES DE AJUSTE ADICIONANDO RECURSOS TEXTUAIS E PADRÕES EXCLUSIVOS PARA DALTONISMO */
 .btn-opt.correct { 
     background-color: #d4edda !important; 
     color: #155724 !important; 
-    border: 3px dashed #155724 !important; /* Borda tracejada ajuda a identificar sem depender da cor verde */
+    border: 4px dashed #155724 !important; /* Identificador por padrão tracejado */
 }
 .btn-opt.wrong { 
     background-color: #f8d7da !important; 
     color: #721c24 !important; 
-    border: 3px double #721c24 !important;  /* Borda dupla ajuda a identificar sem depender da cor vermelha */
+    border: 4px double #721c24 !important;  /* Identificador por padrão duplo */
 }
 
-/* DEMAIS ELEMENTOS */
+/* OUTROS COMPONENTES */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-.card-eco { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 5px solid var(--cor-secundaria); box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.card-eco { background-color: var(--cor-fundo-alt); padding: 30px; border-radius: 8px; border-top: 5px solid var(--cor-secundaria); }
 .card-eco h3 { margin-bottom: 12px; color: var(--cor-principal); }
-.card-eco p { color: var(--cor-texto-secundario); }
-
 .tech-accordion { max-width: 800px; margin: 0 auto; }
-.accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; background: var(--cor-fundo-alt); border-radius: 4px; }
+.accordion-item { border-bottom: 1px solid rgba(0,0,0,0.1); margin-bottom: 12px; background: var(--cor-fundo-alt); }
 .accordion-header { width: 100%; background: transparent; border: none; text-align: left; padding: 18px; font-size: 1.15rem; font-weight: bold; color: var(--cor-principal); cursor: pointer; }
 .accordion-content { padding: 0 18px; max-height: 0; overflow: hidden; transition: all 0.3s ease-in-out; }
-.accordion-content p { padding-bottom: 18px; text-align: justify; color: var(--cor-texto-secundario); }
+.accordion-content p { padding-bottom: 18px; color: var(--cor-texto-secundario); }
 
 .indicators-layout { display: grid; grid-template-columns: 320px 1fr; gap: 30px; }
 .map-wrapper { display: flex; flex-direction: column; align-items: center; background: var(--cor-fundo-alt); padding: 20px; border-radius: 8px; }
@@ -276,7 +198,6 @@ body {
 .form-group input, .form-group select { width: 100%; padding: 11px; border: 1px solid rgba(0,0,0,0.15); border-radius: 4px; background: var(--cor-fundo); color: var(--cor-texto); }
 .btn-action { width: 100%; background-color: var(--cor-botao); color: #fff; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 1rem; }
 .result-box { margin-top: 15px; padding: 15px; background: var(--cor-fundo); border-left: 4px solid var(--cor-secundaria); }
-
 .btn-clima-group { display: flex; gap: 10px; margin-bottom: 15px; }
 .btn-weather { flex: 1; padding: 10px; border: none; cursor: pointer; border-radius: 4px; font-weight: bold; }
 #btn-calor { background-color: #ffe3e3; color: #c92a2a; }
@@ -285,9 +206,8 @@ body {
 .status-ideal { background-color: #d4edda; color: #155724; }
 .status-alerta { background-color: #fff3cd; color: #856404; }
 .status-perigo { background-color: #f8d7da; color: #721c24; }
-
 .card-gamification { border-top-color: var(--cor-alerta); }
-.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo); padding: 12px; border-radius: 6px; font-weight: bold; margin-bottom: 15px; border: 1px solid rgba(0,0,0,0.1); }
+.rpg-dashboard { display: flex; justify-content: space-between; background: var(--cor-fundo); padding: 12px; border-radius: 6px; font-weight: bold; margin-bottom: 15px; }
 
 .animar-scroll { opacity: 0; transform: translateY(25px); transition: all 0.5s ease-out; }
 .animar-scroll.ativo { opacity: 1; transform: translateY(0); }
@@ -296,7 +216,6 @@ body {
 @media (max-width: 768px) {
     .nav-menu { display: none; width: 100%; position: absolute; top: 100%; left: 0; background: #0a192f; padding: 20px; }
     .nav-menu.active { display: block; }
-    .nav-menu ul { flex-direction: column; gap: 15px; }
     .menu-toggle { display: flex; }
     .intro-grid, .indicators-layout, .simulators-grid { grid-template-columns: 1fr; }
 }
