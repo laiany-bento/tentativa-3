@@ -1,6 +1,7 @@
 /**
  * ARQUIVO: main.js
- * FUNCIONALIDADE: Sistema interativo mapeado com os textos oficiais e slider profissional por largura.
+ * FUNCIONALIDADE: Sistema interativo mapeado com os textos oficiais, slider profissional por largura,
+ * quiz expandido (7 perguntas) e Mini-RPG de tomada de decisão estruturado com 3 vias de escolha.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -48,10 +49,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imgAfterBox = document.getElementById("img-after-box");
 
     if (sliderSolo && imgAfterBox) {
-        // Inicializa o recorte em 50% acompanhando o valor nativo do HTML
         imgAfterBox.style.width = sliderSolo.value + "%";
-
-        // Atualiza a largura em tempo real conforme o usuário arrasta
         sliderSolo.addEventListener("input", (e) => {
             imgAfterBox.style.width = e.target.value + "%";
         });
@@ -87,7 +85,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "sp": { 
             titulo: "Estado de São Paulo", 
             prod: "Referência global no cultivo de cana-de-açúcar, citros e produção de biocombustíveis limpos.", 
-            gestao: "Programa Setorial Agrolegal focado na restauracão de áreas de preservação permanente e reuso de água industrial nas usinas.", 
+            gestao: "Programa Setorial Agrolegal focado na restauração de áreas de preservação permanente e reuso de água industrial nas usinas.", 
             tech: "Grande concentração de startups (AgTechs) focadas em rastreabilidade por Blockchain." 
         },
         "mg": { 
@@ -180,12 +178,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ==========================================================================
-    // 7. QUIZ DE CONHECIMENTO
+    // 7. QUIZ DE CONHECIMENTO COMPLETO (7 PERGUNTAS)
     // ==========================================================================
     const quizD = [
-        { q: "Qual a vantagem biológica de proteger as matas ciliares?", o: ["Evita o assoreamento de rios e resguarda nascentes", "Aumenta o espaço para tratores", "Reduz a quantidade de chuva"], a: 0 },
-        { q: "O que caracteriza a tecnologia de precisão no Agrinho?", o: ["Uso manual de ferramentas rudimentares", "Aplicação cirúrgica baseada em dados de sensores", "Uso de produtos sem dosagem"], a: 1 },
-        { q: "Como a energia fotovoltaica flutuante ajuda os reservatórios?", o: ["Esquenta a água", "Reduz a evaporação e gera energia limpa", "Aumenta a acidez da água"], a: 1 }
+        { q: "Qual a vantagem biológica de proteger as matas ciliares?", o: ["Evita o assoreamento de rios e resguarda nascentes", "Aumenta o espaço útil para tratores", "Reduz a quantidade total de chuva anual"], a: 0 },
+        { q: "O que caracteriza a tecnologia de precisão no projeto Agrinho?", o: ["Uso manual e empírico de ferramentas rudimentares", "Aplicação cirúrgica de insumos baseada em dados de sensores", "Uso massivo de produtos sem dosagem controlada"], a: 1 },
+        { q: "Como a energia fotovoltaica flutuante ajuda os reservatórios?", o: ["Esquenta a água para acelerar microrganismos", "Reduz a evaporação e gera eletricidade limpa para bombas", "Aumenta a acidez da água de forma artificial"], a: 1 },
+        { q: "Qual o principal objetivo do sistema de Plantio Direto na palha?", o: ["Manter o solo limpo e totalmente exposto ao sol", "Proteger a biologia do solo contra erosões e reter umidade", "Acelerar a compactação do terreno agrícola"], a: 1 },
+        { q: "Os sensores de umidade enterrados atuam enviando dados via qual tecnologia?", o: ["Cabos de fibra ótica subterrâneos", "Sinais de fumaça digitais", "Ondas de rádio de longo alcance (IoT/LoRaWAN)"], a: 2 },
+        { q: "Qual é o benefício dos bioinsumos frente aos defensivos químicos tradicionais?", o: ["Atuam regenerando o solo sem deixar resíduos tóxicos nocivos", "São produzidos sinteticamente em refinarias de petróleo", "Eliminam 100% de qualquer vida vegetal ao redor"], a: 0 },
+        { q: "As câmeras multiespectrais acopladas em drones servem para capturar o quê?", o: ["Vídeos institucionais para redes sociais rurais", "Índices de estresse hídrico e saúde da biomassa vegetal", "A velocidade exata do vento na copa das árvores"], a: 1 }
     ];
     
     let qAt = 0;
@@ -221,7 +223,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("quiz-body").style.display = "none";
             document.getElementById("quiz-result").style.display = "block";
             document.getElementById("medal-title").textContent = "Quiz Concluído!";
-            document.getElementById("medal-desc").textContent = "🏆 Excelente! Você completou todas as perguntas de sustentabilidade!";
+            document.getElementById("medal-desc").textContent = "🏆 Excelente! Você dominou com sucesso os 7 pilares de sustentabilidade do Agrinho 2026!";
         }
     };
 
@@ -237,7 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
     carregarQ();
 
     // ==========================================================================
-    // 8. MINI-RPG ESTRATÉGICO
+    // 8. MINI-RPG ESTRATÉGICO REFORMULADO (4 ETAPAS E 3 ALTERNATIVAS DETALHADAS)
     // ==========================================================================
     let rpg = { safra: 50, eco: 50, caixa: 5000 };
     let etapaRpg = 1;
@@ -253,28 +255,95 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("rpg-caixa").textContent = rpg.caixa;
         ch.innerHTML = "";
 
+        // ETAPA 1: IRRIGAÇÃO
         if (etapaRpg === 1) {
-            txt.textContent = "Etapa 1: Investir R$ 2.000 para cobrir o reservatório de irrigação com painéis solares flutuantes?";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Sim (Gera energia própria e diminui a evaporação)";
-            b1.addEventListener("click", () => { rpg.eco += 20; rpg.caixa -= 2000; rpg.safra += 10; etapaRpg = 2; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Não (Guardar dinheiro em caixa)";
-            b2.addEventListener("click", () => { rpg.eco -= 15; etapaRpg = 2; rodarRpg(); });
-            ch.appendChild(b1); ch.appendChild(b2);
+            txt.textContent = "Etapa 1: Como planejará o sistema hídrico da lavoura para este ciclo climático?";
+            
+            const b1 = document.createElement("button"); b1.className = "btn-opt"; 
+            b1.textContent = "Opção A: Instalar painéis solares flutuantes e gotejamento automatizado (Custo: R$ 2.000).";
+            b1.addEventListener("click", () => { rpg.eco += 25; rpg.safra += 15; rpg.caixa -= 2000; etapaRpg = 2; rodarRpg(); });
+            
+            const b2 = document.createElement("button"); b2.className = "btn-opt"; 
+            b2.textContent = "Opção B: Irrigação por microaspersão convencional sem sensores (Custo: R$ 1.000).";
+            b2.addEventListener("click", () => { rpg.safra += 15; rpg.eco += 0; rpg.caixa -= 1000; etapaRpg = 2; rodarRpg(); });
+            
+            const b3 = document.createElement("button"); b3.className = "btn-opt"; 
+            b3.textContent = "Opção C: Não investir em tecnologia hídrica e depender 100% da chuva (Custo: R$ 0).";
+            b3.addEventListener("click", () => { rpg.safra -= 20; rpg.eco -= 10; etapaRpg = 2; rodarRpg(); });
+            
+            ch.appendChild(b1); ch.appendChild(b2); ch.appendChild(b3);
         } 
+        // ETAPA 2: TRATAMENTO DE PRAGAS
         else if (etapaRpg === 2) {
-            txt.textContent = "Etapa 2: Uma praga ameaça as plantações da divisa. Qual será sua estratégia?";
-            const b1 = document.createElement("button"); b1.className = "btn-opt"; b1.textContent = "Aplicar defensivo microbiológico seletivo (Custo: R$ 1.000)";
-            b1.addEventListener("click", () => { rpg.eco += 15; rpg.safra += 15; rpg.caixa -= 1000; etapaRpg = 3; rodarRpg(); });
-            const b2 = document.createElement("button"); b2.className = "btn-opt"; b2.textContent = "Usar pulverização química em massa tradicional (Custo: R$ 800)";
-            b2.addEventListener("click", () => { rpg.safra += 20; rpg.eco -= 20; rpg.caixa -= 800; etapaRpg = 3; rodarRpg(); });
-            ch.appendChild(b1); ch.appendChild(b2);
+            txt.textContent = "Etapa 2: Uma infestação de pragas biológicas ameaça a fronteira oeste da sua cultura:";
+            
+            const b1 = document.createElement("button"); b1.className = "btn-opt"; 
+            b1.textContent = "Opção A: Aplicar defensivo microbiológico e vespas predadoras naturais (Custo: R$ 1.200).";
+            b1.addEventListener("click", () => { rpg.eco += 20; rpg.safra += 20; rpg.caixa -= 1200; etapaRpg = 3; rodarRpg(); });
+            
+            const b2 = document.createElement("button"); b2.className = "btn-opt"; 
+            b2.textContent = "Opção B: Utilizar pulverização química em massa tradicional (Custo: R$ 700).";
+            b2.addEventListener("click", () => { rpg.safra += 15; rpg.eco -= 25; rpg.caixa -= 700; etapaRpg = 3; rodarRpg(); });
+            
+            const b3 = document.createElement("button"); b3.className = "btn-opt"; 
+            b3.textContent = "Opção C: Retardar a aplicação para observar a evolução natural da área (Custo: R$ 0).";
+            b3.addEventListener("click", () => { rpg.safra -= 25; rpg.eco -= 5; etapaRpg = 3; rodarRpg(); });
+            
+            ch.appendChild(b1); ch.appendChild(b2); ch.appendChild(b3);
         }
+        // ETAPA 3: CONSERVAÇÃO DO SOLO
+        else if (etapaRpg === 3) {
+            txt.textContent = "Etapa 3: Chegou o período de entresafra. Qual o seu plano de manejo para o solo exposto?";
+            
+            const b1 = document.createElement("button"); b1.className = "btn-opt"; 
+            b1.textContent = "Opção A: Plantio direto com braquiária para palhada e rotação de culturas (Custo: R$ 800).";
+            b1.addEventListener("click", () => { rpg.eco += 20; rpg.safra += 15; rpg.caixa -= 800; etapaRpg = 4; rodarRpg(); });
+            
+            const b2 = document.createElement("button"); b2.className = "btn-opt"; 
+            b2.textContent = "Opção B: Gradeamento mecânico pesado tradicional do solo (Custo: R$ 500).";
+            b2.addEventListener("click", () => { rpg.safra += 5; rpg.eco -= 15; rpg.caixa -= 500; etapaRpg = 4; rodarRpg(); });
+            
+            const b3 = document.createElement("button"); b3.className = "btn-opt"; 
+            b3.textContent = "Opção C: Deixar o solo em pousio completo sem cobertura vegetal ativa (Custo: R$ 0).";
+            b3.addEventListener("click", () => { rpg.eco -= 20; rpg.safra -= 10; etapaRpg = 4; rodarRpg(); });
+            
+            ch.appendChild(b1); ch.appendChild(b2); ch.appendChild(b3);
+        }
+        // ETAPA 4: SENSORIAMENTO E GESTÃO
+        else if (etapaRpg === 4) {
+            txt.textContent = "Etapa 4: Como você coletará dados para o relatório final de certificação agroecológica?";
+            
+            const b1 = document.createElement("button"); b1.className = "btn-opt"; 
+            b1.textContent = "Opção A: Contratar imageamento multiespectral por satélite e nós IoT (Custo: R$ 1.000).";
+            b1.addEventListener("click", () => { rpg.safra += 20; rpg.eco += 15; rpg.caixa -= 1000; etapaRpg = 5; rodarRpg(); });
+            
+            const b2 = document.createElement("button"); b2.className = "btn-opt"; 
+            b2.textContent = "Opção B: Fazer inspeção visual por caminhada amostral em pontos isolados (Custo: R$ 300).";
+            b2.addEventListener("click", () => { rpg.safra += 5; rpg.caixa -= 300; etapaRpg = 5; rodarRpg(); });
+            
+            const b3 = document.createElement("button"); b3.className = "btn-opt"; 
+            b3.textContent = "Opção C: Não realizar relatórios de inspeção técnica neste ciclo (Custo: R$ 0).";
+            b3.addEventListener("click", () => { rpg.safra -= 15; rpg.eco -= 15; etapaRpg = 5; rodarRpg(); });
+            
+            ch.appendChild(b1); ch.appendChild(b2); ch.appendChild(b3);
+        }
+        // RESULTADO FINAL
         else {
-            txt.textContent = "Jornada Finalizada com sucesso!";
+            txt.textContent = "Jornada Estratégica Finalizada!";
             ch.innerHTML = "";
             resBox.style.display = "block";
             const msgFinal = document.getElementById("rpg-final-msg");
-            msgFinal.textContent = (rpg.eco >= 65 && rpg.safra >= 60) ? "🏆 Sucesso Absoluto! Você alcançou o equilíbrio perfeito de produção verde!" : "👍 Ciclo Encerrado! Analise suas escolhas e tente otimizar seu caixa.";
+            
+            if (rpg.eco >= 75 && rpg.safra >= 70 && rpg.caixa > 0) {
+                msgFinal.style.color = "#155724";
+                msgFinal.textContent = `🏆 Produtor Elite de Inovação Azul! Safra: ${rpg.safra}%, Eco: ${rpg.eco}%, Saldo: R$ ${rpg.caixa}. Você alcançou a máxima eficiência ecológica internacional!`;
+            } else if (rpg.caixa < 0) {
+                msgFinal.style.color = "#721c24";
+                msgFinal.textContent = `🚨 Falência Financeira! Apesar das suas decisões, seu caixa ficou negativo (R$ ${rpg.caixa}). Ajuste seus investimentos técnicos de forma equilibrada.`;
+            } else {
+                msgFinal.style.color = "#856404";
+                msgFinal.textContent = `👍 Ciclo Completo! Safra: ${rpg.safra}%, Eco: ${rpg.eco}%, Saldo: R$ ${rpg.caixa}. Sua fazenda opera de modo produtivo, mas você pode melhorar a harmonia dos recursos sustentáveis!`;
+            }
         }
     };
 
