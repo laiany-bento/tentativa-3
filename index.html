@@ -17,17 +17,22 @@
 
     <div class="accessibility-container-fixed">
         <button id="btn-libras" class="btn-float-action" aria-label="Ativar acessibilidade em Libras">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Simbolo_Libras.svg" alt="Símbolo de Libras">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:35px; height:35px;">
+                <path d="M4.5 10.5C3.67 10.5 3 11.17 3 12s.67 1.5 1.5 1.5h13c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5h-13z" fill="#FFF"/>
+                <path d="M2 5.5C2 4.12 3.12 3 4.5 3h15C20.88 3 22 4.12 22 5.5v13c0 1.38-1.12 2.5-2.5 2.5h-15C3.12 21 2 19.88 2 18.5v-13zm4.78 4.38c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L7.59 13.5l-2.22 2.22c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.22-2.22 2.22 2.22c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L10.41 13.5l2.22-2.22c.39-.39.39-1.02 0-1.41-.39-.39-1.02-.39-1.41 0L9 12.09l-2.22-2.21zM14 15h4v-2h-4v2zm0-4h4V9h-4v2z" fill="#FFF"/>
+            </svg>
         </button>
-        <button id="accessibility-trigger" class="btn-float-action" aria-label="Abrir Opções de Acessibilidade" aria-expanded="false">⚙️</button>
-        <div id="accessibility-menu" class="accessibility-menu" aria-hidden="true">
+        
+        <button id="accessibility-trigger" class="btn-float-action" aria-label="Abrir Opções de Acessibilidade">⚙️</button>
+        
+        <div id="accessibility-menu" class="accessibility-menu">
             <h4>Menu de Acessibilidade</h4>
             <button id="btn-dark">🌓 Modo Escuro</button>
             <button id="btn-contrast">⚫ Alto Contraste</button>
             <button id="btn-dyslexia">🔤 Fonte Dislexia</button>
             <div class="font-resizer">
-                <button id="btn-font-plus" aria-label="Aumentar texto">A+</button>
-                <button id="btn-font-minus" aria-label="Diminuir texto">A-</button>
+                <button id="btn-font-plus">A+</button>
+                <button id="btn-font-minus">A-</button>
             </div>
         </div>
     </div>
@@ -55,7 +60,7 @@
         <div class="hero-content animar-scroll">
             <span class="badge">Agrinho 2026</span>
             <h1>Cultivando o Futuro com Inovação Azul e Sustentabilidade</h1>
-            <p>A revolução digital que otimiza a produção de alimentos enquanto protege os recursos hídricos mais preciosos do nosso planeta.</p>
+            <p>A revolução digital que otimiza a produção de alimentos enquanto protege os recursos hídricos.</p>
             <a href="#laboratorio" class="btn-main">Acessar Laboratório Digital</a>
         </div>
     </section>
@@ -64,69 +69,25 @@
         <section id="introducao" class="section container animar-scroll">
             <div class="section-title">
                 <h2>O Projeto Agrinho 2026</h2>
-                <p class="section-subtitle">A sinergia perfeita entre a preservação ambiental do ecossistema e as ferramentas da robótica moderna.</p>
+                <p class="section-subtitle">A sinergia perfeita entre a preservação ambiental e a tecnologia.</p>
             </div>
             <div class="intro-grid">
                 <div class="text-block">
-                    <p>O Agrinho 2026 traz uma proposta pedagógica e técnica profunda: o campo se transformou em um ecossistema altamente conectado e dependente de inteligência de dados.</p>
-                    <p>O grande desafio é aumentar a eficiência global de produção agrícola sem expandir o desmatamento, garantindo que cada gota de água seja aplicada com precisão matemática nas lavouras.</p>
-                    <p><strong>Arraste o controle central na imagem ao lado</strong> para comparar visualmente o cenário de escassez e desperdício contra o manejo de irrigação automatizada por gotejamento.</p>
+                    <p>O Agrinho 2026 traz uma proposta pedagógica profunda: demonstrar como a tecnologia de dados ajuda o produtor rural.</p>
+                    <p><strong>Use o controle deslizante abaixo da imagem</strong> para alternar e misturar a visão real entre o desperdício severo de água e a eficiência da automação moderna.</p>
                 </div>
                 
-                <div class="comparison-container" id="slider-container-block">
+                <div class="comparison-container">
                     <div class="image-box img-before">
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600" alt="Cenário de solo descuidado e escassez">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=600" alt="Cenário de escassez e desperdício">
                         <div class="label-box before">Escassez e Desperdício</div>
                     </div>
                     <div class="image-box img-after" id="img-after-box">
-                        <img src="https://images.unsplash.com/photo-1464246832230-c5c9f4a294ba?q=80&w=600" id="img-after-dinamica" alt="Cenário de manejo azul e irrigação correta">
+                        <img src="https://images.unsplash.com/photo-1464246832230-c5c9f4a294ba?q=80&w=600" alt="Cenário de irrigação automatizada">
                         <div class="label-box after">Irrigação Automatizada</div>
                     </div>
-                    <div class="slider-line" id="slider-separator-line"></div>
-                    <input type="range" min="0" max="100" value="50" class="slider-comparison" id="slider-solo" aria-label="Mover separador visual">
-                </div>
-            </div>
-        </section>
-
-        <section id="sustentabilidade" class="section bg-light">
-            <div class="container animar-scroll">
-                <div class="section-title">
-                    <h2>Mural de Práticas Agroecológicas Avançadas</h2>
-                    <p class="section-subtitle">Conheça os métodos científicos e ecológicos aplicados nas fazendas de tecnologia sustentável.</p>
-                </div>
-                <div class="cards-grid">
-                    <div class="card-eco">
-                        <h3>💧 Gestão Inteligente da Água</h3>
-                        <p>Através do uso de microaspersores interligados a estações meteorológicas, a irrigação só é acionada quando o sensor detecta déficit hídrico real na raiz.</p>
-                    </div>
-                    <div class="card-eco">
-                        <h3>🌳 Preservação de Mananciais</h3>
-                        <p>As matas ciliares e as áreas de preservação permanente (APPs) funcionam como barreiras naturais que evitam o assoreamento dos rios rurais.</p>
-                    </div>
-                    <div class="card-eco">
-                        <h3>☀️ Energia Fotovoltaica Flutuante</h3>
-                        <p>A instalação de painéis solares sobre as superfícies de represas gera eletricidade limpa e reduz em até 30% a perda de água por evaporação natural.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="tecnologia" class="section container animar-scroll">
-            <div class="section-title">
-                <h2>Tecnologia Digital e Automação de Precisão</h2>
-                <p class="section-subtitle">Clique nas abas abaixo para expandir os detalhes e as novidades científicas da engenharia agronômica.</p>
-            </div>
-            <div class="tech-accordion">
-                <div class="accordion-item">
-                    <button class="accordion-header">🛰️ Satélites, Drones e Sensoriamento Multiespectral</button>
-                    <div class="accordion-content">
-                        <p>Os drones modernos utilizam sensores infravermelhos multiespectrais. Ao sobrevoarem a lavoura, medem o índice de clorofila das plantas, detectando estresse hídrico antes do olho humano.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <button class="accordion-header">🧠 IA Analítica, Algoritmos e Internet das Coisas (IoT)</button>
-                    <div class="accordion-content">
-                        <p>Sensores enterrados no solo transmitem dados via redes sem fio diretamente para computadores em nuvem. A Inteligência Artificial processa esses dados prevendo com exatidão necessidades de manejo.</p>
+                    <div class="slider-control-wrapper">
+                        <input type="range" min="0" max="100" value="0" class="slider-comparison" id="slider-solo">
                     </div>
                 </div>
             </div>
@@ -136,12 +97,11 @@
             <div class="container animar-scroll">
                 <div class="section-title">
                     <h2>Central de Informações & Indicadores Expandidos</h2>
-                    <p class="section-subtitle">Interaja diretamente com os nós do mapa ou selecione os botões de estado para relatórios aprofundados.</p>
                 </div>
                 <div class="indicators-layout">
                     <div class="map-wrapper">
                         <h4>Esquema de Regiões</h4>
-                        <div class="mini-map" role="img" aria-label="Mini mapa interativo do Paraná">
+                        <div class="mini-map">
                             <div class="map-node node-norte" data-region="pr-norte">Norte</div>
                             <div class="map-node node-oeste" data-region="pr-oeste">Oeste</div>
                             <div class="map-node node-sul" data-region="pr-sul">Sul</div>
@@ -154,7 +114,7 @@
                             <button class="btn-geo" data-region="rs">Rio Grande do Sul</button>
                         </div>
                     </div>
-                    <div class="display-panel" id="painel-indicadores" aria-live="polite">
+                    <div class="display-panel" id="painel-indicadores">
                         <h3>Selecione uma localidade para obter o relatório completo...</h3>
                     </div>
                 </div>
@@ -162,68 +122,52 @@
         </section>
 
         <section id="laboratorio" class="section container animar-scroll">
-            <div class="section-title">
-                <h2>Laboratório Digital Interativo</h2>
-                <p class="section-subtitle">Simule dosagens reais e eventos meteorológicos extremos diretamente através dos algoritmos do site.</p>
-            </div>
             <div class="simulators-grid">
                 <div class="sim-card">
-                    <h3>🧮 Calculadora Inteligente de Bioinsumos</h3>
+                    <h3>🧮 Calculadora de Bioinsumos</h3>
                     <div class="form-group">
-                        <label for="calc-hec">Tamanho da Área (Hectares):</label>
-                        <input type="number" id="calc-hec" min="1" value="10">
+                        <label for="calc-hec">Hectares:</label>
+                        <input type="number" id="calc-hec" value="10">
                     </div>
                     <div class="form-group">
-                        <label for="calc-cultura">Cultura Agrícola Alvo:</label>
+                        <label for="calc-cultura">Cultura:</label>
                         <select id="calc-cultura">
-                            <option value="soja">Soja Regenerativa</option>
-                            <option value="milho">Milho Tecnológico</option>
-                            <option value="trigo">Trigo Adaptado</option>
+                            <option value="soja">Soja</option>
+                            <option value="milho">Milho</option>
                         </select>
                     </div>
-                    <button id="btn-calcular" class="btn-action">Calcular Dosagem Ecológica</button>
+                    <button id="btn-calcular" class="btn-action">Calcular</button>
                     <div id="result-calc" class="result-box" style="display:none;"></div>
                 </div>
-
                 <div class="sim-card">
-                    <h3>🌡️ Sensor Virtual de Umidade do Solo</h3>
+                    <h3>🌡️ Sensor de Umidade</h3>
                     <div class="form-group">
-                        <label for="slider-umidade">Umidade Coletada: <span id="val-umidade">50</span>%</label>
+                        <label>Umidade: <span id="val-umidade">50</span>%</label>
                         <input type="range" id="slider-umidade" min="0" max="100" value="50">
                     </div>
-                    <div class="btn-clima-group">
-                        <button id="btn-calor" class="btn-weather">☀️ Onda de Calor Extremo</button>
-                        <button id="btn-chuva" class="btn-weather">🌧️ Chuva Torrencial</button>
-                    </div>
-                    <div id="sensor-status" class="sensor-display status-ideal" aria-live="polite">
-                        Status: Umidade Ideal. Válvulas de água fechadas para economia.
-                    </div>
+                    <div id="sensor-status" class="sensor-display status-ideal">Status: Normal.</div>
                 </div>
             </div>
         </section>
 
         <section id="quiz" class="section bg-light">
             <div class="container animar-scroll">
-                <div class="section-title">
-                    <h2>Central de Gamificação Educativa</h2>
-                    <p class="section-subtitle">Avalie seu aprendizado técnico com novos níveis de probabilidade e tomada de decisão.</p>
-                </div>
                 <div class="simulators-grid">
                     <div class="sim-card card-gamification">
-                        <h3>🌱 Quiz de Conhecimento Agrinho</h3>
+                        <h3>🌱 Quiz Agrinho (7 Perguntas)</h3>
                         <div id="quiz-body">
                             <p id="quiz-question" style="font-weight: bold; margin-bottom: 15px;"></p>
                             <div id="quiz-options" class="options-container"></div>
                         </div>
                         <div id="quiz-result" style="display: none; text-align: center;">
                             <h4 id="medal-title"></h4>
-                            <p id="medal-desc" style="font-size: 1.25rem; font-weight: bold; margin: 15px 0;"></p>
+                            <p id="medal-desc" style="font-weight: bold; margin: 15px 0;"></p>
                             <button id="btn-reset-quiz" class="btn-action">Tentar Novamente</button>
                         </div>
                     </div>
 
                     <div class="sim-card card-gamification">
-                        <h3>🚜 Mini-RPG: Decisões Estratégicas</h3>
+                        <h3>🚜 Mini-RPG: Decisões (5 Etapas)</h3>
                         <div id="rpg-stats" class="rpg-dashboard">
                             <div>🌾 Safra: <span id="rpg-safra">50</span>%</div>
                             <div>🍃 Eco: <span id="rpg-eco">50</span>%</div>
@@ -233,9 +177,9 @@
                             <p id="rpg-text" style="margin-bottom: 15px; font-style: italic; min-height: 70px;"></p>
                             <div id="rpg-choices" class="options-container"></div>
                         </div>
-                        <div id="rpg-result" style="display: none; text-align: center; margin-top: 15px;">
+                        <div id="rpg-result" style="display: none; text-align: center;">
                             <p id="rpg-final-msg" style="font-weight: bold; margin-bottom: 15px;"></p>
-                            <button id="btn-reset-rpg" class="btn-action">Reiniciar Jornada do Campo</button>
+                            <button id="btn-reset-rpg" class="btn-action">Reiniciar Jornada</button>
                         </div>
                     </div>
                 </div>
@@ -244,9 +188,7 @@
     </main>
 
     <footer class="footer">
-        <div class="container text-center">
-            <p>&copy; 2026 Projeto Agrinho - Tecnologia Azul e Sustentabilidade Integrada.</p>
-        </div>
+        <p>&copy; 2026 Projeto Agrinho - Tecnologia Azul.</p>
     </footer>
 
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
